@@ -17,47 +17,26 @@ html, body{
 #contentRow{
   min-height: 60%;
   background-color: grey;
+  visibility: hidden;
+  display: none;
+  justify-content: center;
+  align-items: center;
 }
 
 #contentContainer{
   min-height: 100%;
-/*  align-items: center;
-  display: flex;
-  align-items: center;*/
 }
 
-
+.selected{
+  background-color: red !important;
+}
 
 h1{
   text-align: center;
 }
 
 
-#row1 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#row2 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#row3 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#row4 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#row5 {
+.btn-group{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -95,7 +74,7 @@ h1{
 
 
 #btn-container{ 
-  display: inline-block;
+  display: block;
 }
 
 #createGardenButton{
