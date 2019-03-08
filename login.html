@@ -31,6 +31,23 @@
         text-align: center;
         font-size: 24pt;
         font-weight: bold;
+        margin: 0px;
+        padding: 0px;
+        border: 0px;    
+    }
+    h1{
+        margin-bottom: 10px;
+    }
+    
+    h5 {
+        margin-bottom: 3px;
+        margin-top: 0px;
+    }
+    
+    p {
+        margin-top: 0px;
+        font-size: 16pt;
+        margin-bottom: 50px;
     }
     
 </style>    
@@ -48,6 +65,8 @@ var ui = new firebaseui.auth.AuthUI(firebase.auth());
     <!-- The surrounding HTML is left untouched by FirebaseUI.
      Your app may use that space for branding, controls and other customizations.-->
 <h1>Green Guarden</h1>
+<h5>Sign in with your email</h5>
+<p>If you don't have an account enter your email address to create an account</p>
 <div id="firebaseui-auth-container"></div>
 <div id="loader">Loading...</div>
    
