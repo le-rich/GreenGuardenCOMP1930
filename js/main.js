@@ -11,7 +11,6 @@ firebase.auth().onAuthStateChanged(function(user){
     });
 });
 
-
 //When the create a garden is clicked, fade out and display a garden creator.
 $('#createGardenButton').click(function(){
 	$('#createGardenButton').fadeOut("slow",function(){
@@ -20,17 +19,16 @@ $('#createGardenButton').click(function(){
 	});
 });
 
-
 //Creates a 5 x 5 Garden Grid
 //TODO: Make this accept arbitrary sized array.
 function buildCreateAGarden(){
-	for (var x = 0; x < 5; x++){
-		var newRow = "<div id=" + "row" + (x + 1) + " class=\"btn-group\">";
+	for (var y = 0; y < 5; y++){
+		var newRow = "<div id=" + "row" + (y + 1) + " class=\"btn-group\">";
 		$("#btn-container").append(newRow);
-		var appendedRow = $("#row" + (x + 1));
-		for (var y = 0; y < 5; y++){
-			var newButton = "<button class=\"gardenBtn\" data-pos=\"[" + y + "," + x +"]\">1</button>"
-			$("#row" + (x + 1)).append(newButton);
+		var appendedRow = $("#row" + (y + 1));
+		for (var x = 0; x < 5; x++){
+			var newButton = "<button class=\"gardenBtn\" data-pos=\"[" + x + "," + y +"]\">1</button>"
+			$("#row" + (y + 1)).append(newButton);
 		}
 	}
 
@@ -40,11 +38,9 @@ function buildCreateAGarden(){
 	});
 }
 
-
 $('#doneBtn').click(function(){
 	buildGrid();
 });
-
 
 function buildGrid(){
 	firebase.auth().onAuthStateChanged(function(user) {
@@ -61,8 +57,25 @@ function buildGrid(){
 		}
 	});
 
+  //Fades out the creator row.
   $("#contentRow").fadeOut("fast", function(){
-    //Things after fadeout.
     $("#gardenRow").css({"visibility": "visible", "display": "flex"});
+    fetchAndDisplayGrid();
+  });
+}
+
+//Fetches gardenGrid from firebase and constructs a bootstrap layout.
+function fetchAndDisplayGrid(){
+  firebase.auth().onAuthStateChanged(function(user) {
+    var dbRef = firebase.database().ref("users/" + user.uid + "/gardenGrid");
+    dbRef.on(
+      "value",
+      function(snap){
+        snap.forEach(function(snap){
+          console.log(snap.val());
+        });
+      }, function(error){
+        console.log("Error displaying grid: " + error.code);
+    });
   });
 }
