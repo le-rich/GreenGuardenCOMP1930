@@ -6,9 +6,8 @@ $('#createGardenButton').click(function(){
 			[5, 6]
 		];
 		var description = "A test array";
-		firebase.database().ref("users/" + "testUser").update({
+		firebase.database().ref("users/" + user.uid).update({
 			testArray:testArray, 
-			description:description
 		});
 	});
 

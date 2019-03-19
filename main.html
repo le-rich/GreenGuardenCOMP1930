@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Green Guarden</title>
+    <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>    
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
+</head>
+
+<body>
+    
+    <h1></h1>
+    
+    <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBM1eKxfY5soposARWN3ZvJv3ndXemRMjg",
+    authDomain: "green-guarden.firebaseapp.com",
+    databaseURL: "https://green-guarden.firebaseio.com",
+    projectId: "green-guarden",
+    storageBucket: "green-guarden.appspot.com",
+    messagingSenderId: "1087673307666"
+  };
+  firebase.initializeApp(config);
+    app_firebase = firebase; 
+</script>
+    
+    <script>
+        firebase.auth().onAuthStateChanged(function(user){
+        	console.log(name);
+          	console.log(user.uid);
+            
+            var ref = firebase.database().ref("users/" + user.uid);
+        ref.on(
+            "value",   
+            function(snap) {
+                //print name of the person, ie, value of the "name" property
+                //use stringify to convert JSON value to printable string
+                console.log("---Name of person who is ID " + user.uid);
+                console.log(JSON.stringify(snap.val().name));
+                var stringName = JSON.stringify(snap.val().name);
+                stringName = stringName.substring(1, stringName.length -1);
+                
+                var userName = document.getElementsByTagName("h1");
+                userName[0].innerHTML =  stringName+ "'s Garden";
+                
+                
+            });
+            
+            
+        });
+        
+        
+        </script>
+    
+</body>
+    
+    
+
+
+
+</html>
