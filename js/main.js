@@ -13,7 +13,7 @@ firebase.auth().onAuthStateChanged(function(user){
 
 //When the create a garden is clicked, fade out and display a garden creator.
 $('#createGardenButton').click(function(){
-	$('#createGardenButton').fadeOut("slow",function(){
+	$('#createGardenButton').fadeOut("fast",function(){
 		$("#contentRow").css({"visibility": "visible", "display": "flex"});
 		buildCreateAGarden();
 	});
@@ -42,6 +42,8 @@ $('#doneBtn').click(function(){
 	buildGrid();
 });
 
+var existingGrid = $(".gardenPlanter");
+
 function buildGrid(){
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {
@@ -57,9 +59,9 @@ function buildGrid(){
 		}
 	});
 
-  //Fades out the creator row.
-  $("#contentRow").fadeOut("fast", function(){
-    $("#gardenRow").css({"visibility": "visible", "display": "flex"});
+//Fades out the creator row.
+$("#contentRow").fadeOut("fast", function(){
+  $("#gardenRow").css({"visibility": "visible", "display": "flex"});
     fetchAndDisplayGrid();
   });
 }
@@ -72,10 +74,17 @@ function fetchAndDisplayGrid(){
       "value",
       function(snap){
         snap.forEach(function(snap){
-          console.log(snap.val());
+          $(existingGrid[snap.val()[0] +  (5 * snap.val()[1])]).toggleClass("dbPosActive");
+        });
+        $(".gardenPlanter").each(function(){
+        	if (!$(this).hasClass("dbPosActive")){
+        		$(this).css({"visiblity": "hidden", "opacity": "0", "user-select": "none"});
+        	}
         });
       }, function(error){
         console.log("Error displaying grid: " + error.code);
     });
   });
 }
+
+
