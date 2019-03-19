@@ -5,13 +5,13 @@ firebase.auth().onAuthStateChanged(function(user){
 		//use stringify to convert JSON value to printable string
 		var stringName = JSON.stringify(snap.val().name);
         stringName = stringName.substring(1, stringName.length -1);
-                
+
         var userName = document.getElementById("title");
         userName.innerHTML =  stringName+ "'s Garden";
-    });  
+    });
 });
-        
-  
+
+
 //When the create a garden is clicked, fade out and display a garden creator.
 $('#createGardenButton').click(function(){
 	$('#createGardenButton').fadeOut("slow",function(){
@@ -58,10 +58,11 @@ function buildGrid(){
 				gardenGrid:gardenArr,
 				gardenCreated: created
 			});
-			
 		}
 	});
-	
+
+  $("#contentRow").fadeOut("fast", function(){
+    //Things after fadeout.
+    $("#gardenRow").css({"visibility": "visible", "display": "flex"});
+  });
 }
-
-

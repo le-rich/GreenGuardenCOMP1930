@@ -27,6 +27,15 @@ html, body{
   min-height: 100%;
 }
 
+#gardenRow{
+  min-height: 60%;
+  background-color: cyan;
+  visibility: hidden;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
 .selected{
   background-color: red !important;
 }
@@ -73,7 +82,7 @@ h1{
 
 
 
-#btn-container{ 
+#btn-container{
   display: block;
 }
 
