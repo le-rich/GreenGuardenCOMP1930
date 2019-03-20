@@ -1,15 +1,27 @@
 //Change Title Bar to User Name's Garden
 firebase.auth().onAuthStateChanged(function(user){
+	//Get User's name and change the title to their garden.
     var ref = firebase.database().ref("users/" + user.uid);
     ref.on("value", function(snap) {
-		//use stringify to convert JSON value to printable string
 		var stringName = JSON.stringify(snap.val().name);
         stringName = stringName.substring(1, stringName.length -1);
-
         var userName = document.getElementById("title");
         userName.innerHTML =  stringName+ "'s Garden";
     });
+
+    //Get if the user has already created a garden, if so, load it.
+    ref = firebase.database().ref("users/" + user.uid +"/gardenCreated");
+    ref.on("value", function(snap){
+    	if (snap.val()){
+    		$("#createGardenButton").css({"visibility": "hidden", "display": "none"});
+    		fetchAndDisplayGrid();
+    	}
+    });
 });
+
+
+
+
 
 //When the create a garden is clicked, fade out and display a garden creator.
 $('#createGardenButton').click(function(){
@@ -59,15 +71,18 @@ function buildGrid(){
 		}
 	});
 
-//Fades out the creator row.
-$("#contentRow").fadeOut("fast", function(){
-  $("#gardenRow").css({"visibility": "visible", "display": "flex"});
-    fetchAndDisplayGrid();
-  });
+	//Fades out the creator row.
+	$("#contentRow").fadeOut("fast", function(){
+    	fetchAndDisplayGrid();
+	});
 }
+
+
+
 
 //Fetches gardenGrid from firebase and constructs a bootstrap layout.
 function fetchAndDisplayGrid(){
+  $("#gardenRow").css({"visibility": "visible", "display": "flex"});
   firebase.auth().onAuthStateChanged(function(user) {
     var dbRef = firebase.database().ref("users/" + user.uid + "/gardenGrid");
     dbRef.on(
