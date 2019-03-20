@@ -12,7 +12,7 @@ firebase.auth().onAuthStateChanged(function(user){
     //Get if the user has already created a garden, if so, load it.
     ref = firebase.database().ref("users/" + user.uid +"/gardenCreated");
     ref.on("value", function(snap){
-    	if (snap.val()){
+    	if (snap.val() == true){
     		$("#createGardenButton").css({"visibility": "hidden", "display": "none"});
     		fetchAndDisplayGrid();
     	}
