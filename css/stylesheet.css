@@ -12,6 +12,14 @@ html, body{
 #pageContainer{
   width: 100%;
   height: 100%;
+  background-color: cyan;
+}
+
+#uiContainer{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 10;
 }
 
 #contentRow{
@@ -27,8 +35,47 @@ html, body{
   min-height: 100%;
 }
 
+#gardenRow{
+  min-height: 60%;
+  visibility: hidden;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+#uiSpacerRow{
+  height: 70%;
+}
+
+#expContainer{
+  width: 100%;
+  height: 50px;
+}
+
+#notifContainer{
+  width: 50px;
+  height: 50px;
+  margin-left: auto;
+}
+
+.headerContainer{
+  border-radius: 12px;
+  border: 3px solid black;
+}
+
+.gardenPlanter{
+  background-color: magenta;
+  height: 75px;
+  width: 75px;
+  border: 2px solid black;
+}
+
 .selected{
   background-color: red !important;
+}
+
+.dbPosActive{
+  background-color: blue;
 }
 
 h1{
@@ -73,7 +120,7 @@ h1{
 
 
 
-#btn-container{ 
+#btn-container{
   display: block;
 }
 
@@ -81,6 +128,7 @@ h1{
   display: block;
   margin: 0 auto;
 }
+
 
 #footer{
     display: flex;
@@ -93,4 +141,21 @@ h1{
     border: 1px solid black;
     width: 50px;
     height: 50px;
+}
+
+.rndTopLeft{
+  border-top-left-radius: 12px;
+}
+
+.rndTopRight{
+  border-top-right-radius: 12px;
+}
+
+.rndBtmLeft{
+  border-bottom-left-radius: 12px;
+}
+
+.rndBtmRight{
+  border-bottom-right-radius: 12px;
+
 }

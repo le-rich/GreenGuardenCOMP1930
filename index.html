@@ -23,32 +23,80 @@
   <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 </head>
 <body>
-
-  <div id="pageContainer" class="container-fluid">
-    <div class="row">
+  <div id="uiContainer" class="container-fluid">
+    <div class="row mt-3">
       <div class="col-4 text-left">
-        THIS IS THE EXP BAR
+        <div id="expContainer" class="headerContainer">This is the EXP</div>
       </div>
       <div class="col-4 text-center" id = "title">
         THIS IS THE GARDEN TITLE
       </div>
-      <div class="col-4 text-right">
-        THIS IS THE NOTIFICATIONS
+      <div class="col-4 text-center">
+        <div id="notifContainer" class="headerContainer">
+          <img src="css/img/notifBell.png" width="45px" height="auto">
+        </div>
       </div>
     </div>
+    <div id="uiSpacerRow" class="row"></div>
+    <div class="row">
+      <div class = "col-8 text-center mr-auto ml-auto">
+        THIS IS THE FOOTER LOL
+      </div>
+    </div>
+  </div>
+
+  <div id="pageContainer" class="container-fluid">
     <div class="row">
       <button id="createGardenButton" type="button" class="btn btn-outline-success">Create a Garden</button>
-
+    </div>
+    <div id="gardenRow" class="row align-middle">
+      <div id="gardenContainer" class="col-10 mr-auto ml-auto">
+        <div class="row text-center">
+          <div class="col-2 gardenPlanter rndTopLeft ml-auto">TEST</div>
+          <div class="col-2 gardenPlanter">TEST</div>
+          <div class="col-2 gardenPlanter">TEST</div>
+          <div class="col-2 gardenPlanter">TEST</div>
+          <div class="col-2 gardenPlanter rndTopRight mr-auto">TEST</div>
+        </div>
+        <div class="row text-center">
+          <div class="col-2 gardenPlanter ml-auto">TEST</div>
+          <div class="col-2 gardenPlanter">TEST</div>
+          <div class="col-2 gardenPlanter">TEST</div>
+          <div class="col-2 gardenPlanter">TEST</div>
+          <div class="col-2 gardenPlanter mr-auto">TEST</div>
+        </div>
+        <div class="row text-center">
+          <div class="col-2 gardenPlanter ml-auto">TEST</div>
+          <div class="col-2 gardenPlanter">TEST</div>
+          <div class="col-2 gardenPlanter">TEST</div>
+          <div class="col-2 gardenPlanter">TEST</div>
+          <div class="col-2 gardenPlanter mr-auto">TEST</div>
+        </div>
+        <div class="row text-center">
+          <div class="col-2 gardenPlanter ml-auto">TEST</div>
+          <div class="col-2 gardenPlanter">TEST</div>
+          <div class="col-2 gardenPlanter">TEST</div>
+          <div class="col-2 gardenPlanter">TEST</div>
+          <div class="col-2 gardenPlanter  mr-auto">TEST</div>
+        </div>
+        <div class="row text-center">
+          <div class="col-2 gardenPlanter rndBtmLeft ml-auto">TEST</div>
+          <div class="col-2 gardenPlanter">TEST</div>
+          <div class="col-2 gardenPlanter">TEST</div>
+          <div class="col-2 gardenPlanter">TEST</div>
+          <div class="col-2 gardenPlanter rndBtmRight mr-auto">TEST</div>
+        </div>
+      </div>
     </div>
     <div id="contentRow" class="row align-middle">
-      <div id="contentContainer" class="col-12 mr-auto ml-auto">
+      <div id="createGardenContainer" class="col-12 mr-auto ml-auto">
         <div id="btn-container" class="mx-auto my-auto">
+          <!-- Create a Grid is added here  -->
         </div>
         <div class="row">
           <div class="col-1 mx-auto text-center mt-3">
             <button id="doneBtn" type="button" class="btn btn-primary">Done</button>
           </div>
-          
         </div>
       </div>
     </div>
@@ -63,9 +111,10 @@
           <div class="WeatherDiv">7</div>
       </div>
     </div>
+
   </div>
-    
-	
+
+
   <!-- Bootstrap Dependencies -->
   <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -73,7 +122,7 @@
   crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  
+
   <!-- Custom -->
   <script type="text/javascript" src="js/main.js"></script>
 </body>
