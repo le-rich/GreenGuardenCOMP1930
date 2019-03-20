@@ -87,4 +87,11 @@ function fetchAndDisplayGrid(){
   });
 }
 
+function on() {
+    document.getElementById("plantOverlay").style.display = "block";
+}
+
+function off() {
+    document.getElementById("plantOverlay").style.display = "none";
+}
 
