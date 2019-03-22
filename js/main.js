@@ -104,9 +104,49 @@ function fetchAndDisplayGrid(){
 
 function on() {
     document.getElementById("plantOverlay").style.display = "block";
+    
+    
+
 }
 
 function off() {
     document.getElementById("plantOverlay").style.display = "none";
 }
+
+
+$(document).ready(function() {
+    
+
+                ShowList("Plants");
+
+}
+);
+
+    function ShowList(category) {
+        //var list[];
+        var dbRef = firebase.database().ref(category);
+        var promise = dbRef.once("value", function(snap){
+            list=snap.val();
+        });
+        promise.then(function(){
+            DisplayList(list);  //JSON object
+            
+        });
+    }
+    
+    function DisplayList(list){
+        console.log(list);
+        for (x in list) {
+            var para = document.createElement("p");
+            var overlay = document.getElementById("plantOverlay");
+            overlay.appendChild(para);
+            var node = document.createTextNode(x);
+            para.appendChild(node);
+        }
+    }
+
+
+
+        
+
 
