@@ -2,6 +2,8 @@
 <html>
 <head>
   <title>Green Guarden - Home</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -23,24 +25,67 @@
   <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 </head>
 <body>
+  <div id="plantOverlay">
+    <button id="close" type="button" onclick="off()">Done</button>
+  </div>
   <div id="uiContainer" class="container-fluid">
     <div class="row mt-3">
-      <div class="col-4 text-left">
-        <div id="expContainer" class="headerContainer">This is the EXP</div>
+      <div class="col-3 text-left">
+        <div id="expContainer" class="headerContainer container-fluid">
+          <div class="row"> 
+            <div class="col-3 my-auto">
+              <img src="css/img/thumb.PNG" width="100%" height="auto">
+            </div>
+            <div class="col-9 container-fluid">
+              <div class="row">
+                <div class="col-12">
+                  Name Here
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  Spacer
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-7">
+                  Level
+                </div>
+                <div class="ml-auto col-3">
+                  XP
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  ||||||||||||||||||||||
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-4 text-center" id = "title">
+      <div class="col-6 text-center" id = "title">
         THIS IS THE GARDEN TITLE
       </div>
-      <div class="col-4 text-center">
+      <div class="col-3 text-center">
         <div id="notifContainer" class="headerContainer">
           <img src="css/img/notifBell.png" width="45px" height="auto">
         </div>
       </div>
     </div>
-    <div id="uiSpacerRow" class="row"></div>
+    <div id="uiSpacerRow" class="row">
+    </div>
     <div class="row">
       <div class = "col-8 text-center mr-auto ml-auto">
-        THIS IS THE FOOTER LOL
+        <div id="footer">
+          <div class="WeatherDiv">1</div>
+          <div class="WeatherDiv">2</div>
+          <div class="WeatherDiv">3</div>
+          <div class="WeatherDiv">4</div>
+          <div class="WeatherDiv">5</div>
+          <div class="WeatherDiv">6</div>
+          <div class="WeatherDiv">7</div>
+        </div>
       </div>
     </div>
   </div>
@@ -100,32 +145,7 @@
         </div>
       </div>
     </div>
-    <div id="row">
-      <div id="footer">
-          <div class="WeatherDiv">1</div>
-          <div class="WeatherDiv">2</div>
-          <div class="WeatherDiv">3</div>
-          <div class="WeatherDiv">4</div>
-          <div class="WeatherDiv">5</div>
-          <div class="WeatherDiv">6</div>
-          <div class="WeatherDiv">7</div>
-
-
-      
-    <!-- Add Plant Overlay -->
-      <div id="plantOverlay">
-        <button id="close" type="button" onclick="off()">Done</button>
-      
-      
-      </div>
-      
-
-      
-      
   </div>
-
-</div>
-    </div>
   <!-- Bootstrap Dependencies -->
   <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"

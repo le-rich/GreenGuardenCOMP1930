@@ -1,27 +1,24 @@
 //Change Title Bar to User Name's Garden
 firebase.auth().onAuthStateChanged(function(user){
 	//Get User's name and change the title to their garden.
-    var ref = firebase.database().ref("users/" + user.uid);
-    ref.on("value", function(snap) {
+	var ref = firebase.database().ref("users/" + user.uid);
+	ref.on("value", function(snap) {
 		var stringName = JSON.stringify(snap.val().name);
-        stringName = stringName.substring(1, stringName.length -1);
-        var userName = document.getElementById("title");
-        userName.innerHTML =  stringName+ "'s Garden";
-    });
+		stringName = stringName.substring(1, stringName.length -1);
+		var userName = document.getElementById("title");
+		userName.innerHTML =  stringName+ "'s Garden";
+	});
 
     //Get if the user has already created a garden, if so, load it.
     ref = firebase.database().ref("users/" + user.uid +"/gardenCreated");
     ref.on("value", function(snap){
-    	if (snap.val() == true){
+    	if (snap.val()){
+    		//TODO RESTORE THIS ONCE WE'VE FINALIZED EDIT BUTTON
     		$("#createGardenButton").css({"visibility": "hidden", "display": "none"});
     		fetchAndDisplayGrid();
     	}
     });
 });
-
-
-
-
 
 //When the create a garden is clicked, fade out and display a garden creator.
 $('#createGardenButton').click(function(){
@@ -56,6 +53,7 @@ $('#doneBtn').click(function(){
 
 var existingGrid = $(".gardenPlanter");
 
+//If the user is logged in, get all selected buttons and submit their positions to the db.
 function buildGrid(){
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {
@@ -73,40 +71,67 @@ function buildGrid(){
 
 	//Fades out the creator row.
 	$("#contentRow").fadeOut("fast", function(){
-    	fetchAndDisplayGrid();
+		fetchAndDisplayGrid();
 	});
 }
 
-
-
-
 //Fetches gardenGrid from firebase and constructs a bootstrap layout.
 function fetchAndDisplayGrid(){
-  $("#gardenRow").css({"visibility": "visible", "display": "flex"});
-  firebase.auth().onAuthStateChanged(function(user) {
-    var dbRef = firebase.database().ref("users/" + user.uid + "/gardenGrid");
-    dbRef.on(
-      "value",
-      function(snap){
-        snap.forEach(function(snap){
-          $(existingGrid[snap.val()[0] +  (5 * snap.val()[1])]).toggleClass("dbPosActive");
-        });
-        $(".gardenPlanter").each(function(){
-        	if (!$(this).hasClass("dbPosActive")){
-        		$(this).css({"visiblity": "hidden", "opacity": "0", "user-select": "none"});
-        	}
-        });
-      }, function(error){
-        console.log("Error displaying grid: " + error.code);
-    });
-  });
+	$("#gardenRow").css({"visibility": "visible", "display": "flex"});
+	firebase.auth().onAuthStateChanged(function(user) {
+		var dbRef = firebase.database().ref("users/" + user.uid + "/gardenGrid");
+		dbRef.on(
+			"value",
+			function(snap){
+				snap.forEach(function(snap){
+					$(existingGrid[snap.val()[0] +  (5 * snap.val()[1])]).toggleClass("dbPosActive");
+				});
+				$(".gardenPlanter").each(function(){
+					if (!$(this).hasClass("dbPosActive")){
+						$(this).css({"visiblity": "hidden", "opacity": "0", "user-select": "none"});
+					}
+				});
+			}, function(error){
+				console.log("Error displaying grid: " + error.code);
+			});
+	});
 }
 
 function on() {
-    document.getElementById("plantOverlay").style.display = "block";
+	document.getElementById("plantOverlay").style.display = "block";
+	document.getElementById("plantOverlay").style.visibility = "visible";
 }
 
 function off() {
-    document.getElementById("plantOverlay").style.display = "none";
+	document.getElementById("plantOverlay").style.display = "none";
+	document.getElementById("plantOverlay").style.visibility = "hidden";
 }
+
+
+$(document).ready(function() {
+	ShowList("Plants");
+});
+
+function ShowList(category) {
+        //var list[];
+        var dbRef = firebase.database().ref(category);
+        var promise = dbRef.once("value", function(snap){
+        	list=snap.val();
+        });
+        promise.then(function(){
+            DisplayList(list);  //JSON object
+        });
+    }
+    
+    function DisplayList(list){
+    	for (x in list) {
+    		var para = document.createElement("p");
+    		var overlay = document.getElementById("plantOverlay");
+    		overlay.appendChild(para);
+    		var node = document.createTextNode(x);
+    		para.appendChild(node);
+    	}
+    }
+
+
 
