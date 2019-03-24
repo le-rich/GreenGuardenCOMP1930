@@ -42,6 +42,7 @@ html, body{
   display: none;
   justify-content: center;
   align-items: center;
+  pointer-events: auto;
 }
 
 #uiSpacerRow{
@@ -65,6 +66,10 @@ html, body{
     background-color: red;
 }
 
+#weatherRow{
+  margin-top: 70%;
+}
+
 .headerContainer{
   border-radius: 12px;
   border: 3px solid black;
@@ -73,13 +78,19 @@ html, body{
 
 .gardenPlanter{
   background-color: magenta;
-  height: 75px;
-  width: 75px;
+  min-height: 100px;
+  max-width: 100px;
   border: 2px solid black;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+#gardenContainer{
+  margin-top: 10%;
+  margin-bottom: 10%;
+  z-index: 1;
 }
 
 .addPlant {
@@ -91,9 +102,11 @@ html, body{
     width: 300px;
     background-color: lightgrey;
     display: none;
+    visibility: hidden;
     position: fixed;
-    left: 30px;
-    top: 60px;
+    left: 2%;
+    top: 10%;
+    z-index: 10000;
 }
 
 #close {
