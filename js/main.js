@@ -12,9 +12,9 @@ firebase.auth().onAuthStateChanged(function(user){
     //Get if the user has already created a garden, if so, load it.
     ref = firebase.database().ref("users/" + user.uid +"/gardenCreated");
     ref.on("value", function(snap){
-    	if (snap.val()){
-    		//TODO RESTORE THIS ONCE WE'VE FINALIZED EDIT BUTTON
+    	if (snap.val() == true){
     		$("#createGardenButton").css({"visibility": "hidden", "display": "none"});
+    		console.log("Fetched from Startup");
     		fetchAndDisplayGrid();
     	}
     });
@@ -55,6 +55,7 @@ var existingGrid = $(".gardenPlanter");
 
 //If the user is logged in, get all selected buttons and submit their positions to the db.
 function buildGrid(){
+	console.log("build");
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {
 			var gardenArr = [];
@@ -63,20 +64,19 @@ function buildGrid(){
 			});
 			var created = true;
 			firebase.database().ref("users/"+user.uid).update({
-				gardenGrid:gardenArr,
+				gardenGrid: gardenArr,
 				gardenCreated: created
 			});
 		}
 	});
 
 	//Fades out the creator row.
-	$("#contentRow").fadeOut("fast", function(){
-		fetchAndDisplayGrid();
-	});
+	$("#contentRow").fadeOut("fast");
 }
 
 //Fetches gardenGrid from firebase and constructs a bootstrap layout.
 function fetchAndDisplayGrid(){
+	console.log("Fetch and Display");
 	$("#gardenRow").css({"visibility": "visible", "display": "flex"});
 	firebase.auth().onAuthStateChanged(function(user) {
 		var dbRef = firebase.database().ref("users/" + user.uid + "/gardenGrid");
@@ -113,25 +113,24 @@ $(document).ready(function() {
 });
 
 function ShowList(category) {
-        //var list[];
-        var dbRef = firebase.database().ref(category);
-        var promise = dbRef.once("value", function(snap){
-        	list=snap.val();
-        });
-        promise.then(function(){
-            DisplayList(list);  //JSON object
-        });
-    }
+    var dbRef = firebase.database().ref(category);
+    var promise = dbRef.once("value", function(snap){
+        list=snap.val();
+    });
+    promise.then(function(){
+        DisplayList(list);  //JSON object
+    });
+}
     
-    function DisplayList(list){
-    	for (x in list) {
-    		var para = document.createElement("p");
-    		var overlay = document.getElementById("plantOverlay");
-    		overlay.appendChild(para);
-    		var node = document.createTextNode(x);
-    		para.appendChild(node);
-    	}
+function DisplayList(list){
+    for (x in list) {
+    	var para = document.createElement("p");
+    	var overlay = document.getElementById("plantOverlay");
+    	overlay.appendChild(para);
+    	var node = document.createTextNode(x);
+    	para.appendChild(node);
     }
+}
 
 
 
