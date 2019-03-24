@@ -20,10 +20,6 @@ firebase.auth().onAuthStateChanged(function(user){
     });
 });
 
-
-
-
-
 //When the create a garden is clicked, fade out and display a garden creator.
 $('#createGardenButton').click(function(){
 	$('#createGardenButton').fadeOut("fast",function(){
@@ -57,6 +53,7 @@ $('#doneBtn').click(function(){
 
 var existingGrid = $(".gardenPlanter");
 
+//If the user is logged in, get all selected buttons and submit their positions to the db.
 function buildGrid(){
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {
@@ -77,9 +74,6 @@ function buildGrid(){
 		fetchAndDisplayGrid();
 	});
 }
-
-
-
 
 //Fetches gardenGrid from firebase and constructs a bootstrap layout.
 function fetchAndDisplayGrid(){
