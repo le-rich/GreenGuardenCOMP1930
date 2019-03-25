@@ -16,8 +16,13 @@ firebase.auth().onAuthStateChanged(function(user){
     		$("#createGardenButton").css({"visibility": "hidden", "display": "none"});
     		console.log("Fetched from Startup");
     		fetchAndDisplayGrid();
+    		
     	}
     });
+});
+
+$(document).ready(function(){
+	initUserStats();
 });
 
 //When the create a garden is clicked, fade out and display a garden creator.
@@ -44,6 +49,25 @@ function buildCreateAGarden(){
 	//When a garden Button is clicked, add the class selected to that button.
 	$('.gardenBtn').click(function(){
 		$(this).toggleClass("selected");
+	});
+}
+
+function initUserStats(){
+	firebase.auth().onAuthStateChanged(function(user) {
+		var ref = firebase.database().ref("users/" + user.uid);
+		ref.on("value", function(snap) {
+			$("#expXPCounter").text(snap.val().exp + "XP");
+		});
+
+		//ref = firebase.database().ref("users/" + user.uid + "/level");
+		ref.on("value", function(snap) {
+			$("#expLevel").text("Level " + snap.val().level);
+		});
+
+		//ref = firebase.database().ref("users/" + user.uid + "/name");
+		ref.on("value", function(snap) {
+			$("#expName").text(snap.val().name);
+		});
 	});
 }
 
@@ -113,23 +137,23 @@ $(document).ready(function() {
 });
 
 function ShowList(category) {
-    var dbRef = firebase.database().ref(category);
-    var promise = dbRef.once("value", function(snap){
-        list=snap.val();
-    });
-    promise.then(function(){
+	var dbRef = firebase.database().ref(category);
+	var promise = dbRef.once("value", function(snap){
+		list=snap.val();
+	});
+	promise.then(function(){
         DisplayList(list);  //JSON object
     });
 }
-    
+
 function DisplayList(list){
-    for (x in list) {
-    	var para = document.createElement("p");
-    	var overlay = document.getElementById("plantOverlay");
-    	overlay.appendChild(para);
-    	var node = document.createTextNode(x);
-    	para.appendChild(node);
-    }
+	for (x in list) {
+		var para = document.createElement("p");
+		var overlay = document.getElementById("plantOverlay");
+		overlay.appendChild(para);
+		var node = document.createTextNode(x);
+		para.appendChild(node);
+	}
 }
 
 
