@@ -7,7 +7,9 @@
 
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <!-- Firebase -->
+ 
+ 
+<!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
   <script>
     // Initialize Firebase
@@ -25,6 +27,9 @@
   <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 </head>
 <body>
+    
+  <div id="notificationFeed"></div>
+    
   <div id="plantOverlay" class="container-fluid">
     <button id="close" type="button" onclick="off()">Done</button>
     <div class="row">
@@ -71,24 +76,21 @@
       <div class="col-6 text-center" id = "title">
         GARDEN TITLE
       </div>
+        
       <div class="col-3 text-center">
         <div id="notifContainer" class="headerContainer">
           <img src="css/img/notifBell.png" width="45px" height="auto">
-        </div>
+        </div>          
       </div>
-    </div>
+    </div>  
     <div id="uiSpacerRow" class="row">
     </div>
     <div class="row">
       <div class = "col-8 text-center mr-auto ml-auto">
-        <div id="footer">
-          <div class="WeatherDiv">1</div>
-          <div class="WeatherDiv">2</div>
-          <div class="WeatherDiv">3</div>
-          <div class="WeatherDiv">4</div>
-          <div class="WeatherDiv">5</div>
-          <div class="WeatherDiv">6</div>
-          <div class="WeatherDiv">7</div>
+    <div id="footer">
+     <div>
+      <a class="weatherwidget-io" href="https://forecast7.com/en/40d71n74d01/new-york/" data-label_2="WEATHER" data-theme="original" >WEATHER</a>
+      </div>
         </div>
       </div>
     </div>
@@ -149,6 +151,8 @@
         </div>
       </div>
     </div>
+      
+   
   </div>
   <!-- Bootstrap Dependencies -->
   <script
@@ -160,5 +164,9 @@
 
   <!-- Custom -->
   <script type="text/javascript" src="js/main.js"></script>
+    <!-- Weather -->
+<script>
+
+</script>    
 </body>
 </html>

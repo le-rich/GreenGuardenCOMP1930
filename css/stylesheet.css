@@ -176,12 +176,7 @@ h1{
 }
 
 
-#footer{
-    display: flex;
-    justify-content: center;
-    /*placeholder color*/
-    background-color: green;
-}
+
 
 #title{
   font-size: 28pt;
@@ -209,4 +204,22 @@ h1{
 .rndBtmRight{
   border-bottom-right-radius: 12px;
 
+}
+
+#notificationFeed{
+    border: 1px solid black;
+    background-color: green;
+    width: 225px;
+    height: 225px;
+    position: fixed;
+    right: 10px;
+    bottom: 500px;
+    visibility: hidden;
+    display: none;
+}
+
+#notifContainer:hover #notificationFeed{
+   visibility: visible;
+    display: block;
+    
 }

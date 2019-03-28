@@ -132,6 +132,9 @@ function off() {
 }
 
 
+
+
+
 $(document).ready(function() {
 	ShowList("Plants");
 });
@@ -146,6 +149,8 @@ function ShowList(category) {
     });
 }
 
+
+
 function DisplayList(list){
 	for (x in list) {
 		var newRow = $(document.createElement("div")).attr("class", "row");
@@ -157,6 +162,17 @@ function DisplayList(list){
 		var node = $(document.createTextNode(x));
 		para.append(node);
 	}
+    
+!function(d,s,id){
+        var js,fjs=d.getElementsByTagName(s)[0];
+        if(!d.getElementById(id))
+        {
+            js=d.createElement(s);
+        js.id=id;
+        js.src='https://weatherwidget.io/js/widget.min.js';
+        fjs.parentNode.insertBefore(js,fjs);}
+    }
+    (document,'script','weatherwidget-io-js');
 }
 
 function addPlant() {
