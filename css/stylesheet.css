@@ -93,7 +93,11 @@ html, body{
 }
 
 .addPlant {
-    width: 50%;
+    width: 80%;
+}
+
+.plant {
+    width: 80%;
 }
 
 #plantOverlay {

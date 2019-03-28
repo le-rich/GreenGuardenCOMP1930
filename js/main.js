@@ -150,7 +150,7 @@ function DisplayList(list){
 	for (x in list) {
 		var newRow = $(document.createElement("div")).attr("class", "row");
 		var col = $(document.createElement("div")).attr("class", "col-12");
-		var para = $(document.createElement("p"));
+		var para = $(document.createElement("button")).attr({"class":"plant", "onclick":"addPlant()", "type":"button"});
 		newRow.append(col);
 		col.append(para);
 		var overlay = $("#plantOverlay").append(newRow);
@@ -159,5 +159,7 @@ function DisplayList(list){
 	}
 }
 
-
+function addPlant() {
+    off();
+}
 
