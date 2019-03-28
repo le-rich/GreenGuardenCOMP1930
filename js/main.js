@@ -121,15 +121,19 @@ function fetchAndDisplayGrid(){
 	});
 }
 
-function on() {
+function on(box) {
 	document.getElementById("plantOverlay").style.display = "block";
 	document.getElementById("plantOverlay").style.visibility = "visible";
+    $("#plantOverlay").attr("data-box",box);
 }
 
 function off() {
 	document.getElementById("plantOverlay").style.display = "none";
 	document.getElementById("plantOverlay").style.visibility = "hidden";
 }
+
+
+
 
 
 
@@ -177,5 +181,6 @@ function DisplayList(list){
 
 function addPlant() {
     off();
+    var box = $("#plantOverlay").dataset.box;
 }
 

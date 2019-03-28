@@ -94,10 +94,13 @@ html, body{
 
 .addPlant {
     width: 80%;
+    font-weight: bold;
 }
 
 .plant {
-    width: 80%;
+    width: 95%;
+    margin: 3px;
+    font-weight: bold;
 }
 
 #plantOverlay {
