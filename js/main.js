@@ -80,7 +80,7 @@ function initUserStats(){
 		buildGrid();
 	});
 
-<<<<<<< HEAD
+
 
 $('#moreButton').click(function(){
     $('#gardenRow').css({"visibility": "hidden", "display": "none"}).fadeOut("fast",function(){
@@ -90,9 +90,8 @@ $('#moreButton').click(function(){
 
 
 var existingGrid = $(".gardenPlanter");
-=======
-	var existingGrid = $(".gardenPlanter");
->>>>>>> af3984404996b89ea46719941231ac566c22d2e7
+
+
 
 //If the user is logged in, get all selected buttons and submit their positions to the db.
 function buildGrid(){
@@ -236,9 +235,9 @@ function addPlant() {
     selectedBox.removeChild(selectedBox.firstChild);
       
 
-    firebase.database().ref("users/"+globalUser.uid +"/gardenGrid/" + (box-1)).update({
+        firebase.database().ref("users/"+globalUser.uid +"/gardenGrid/" + (box-1)).update({
             plant: "lettuce"
-    });
+        });
       
 	}
     
