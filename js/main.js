@@ -91,7 +91,6 @@ var existingGrid = $(".gardenPlanter");
 
 //If the user is logged in, get all selected buttons and submit their positions to the db.
 function buildGrid(){
-	console.log("build");
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {
 			var gardenArr = [];
@@ -139,7 +138,6 @@ function fetchAndDisplayGrid(){
 
 		plantRef.on("value", function(snap){
 			snap.forEach(function(snap){
-				console.log(snap.val());
 				$(existingGrid[snap.val()["gridIndex"]]).toggleClass("hasPlant").data("plant", snap.val()["plant"]);
 			});
 
@@ -214,7 +212,6 @@ function UpdateXPBar(){
 		var currentXp = snap.val().exp;
 		if (currentXp >=  snap.val().expForLevel){
 			var remainingExp = snap.val().exp - snap.val().expForLevel;
-			console.log("Remaining EXP:"  + remainingExp);
 			currentXp = 0;
 			handleLevelUp(remainingExp, snap.val().expForLevel, snap.val().level);
 		}

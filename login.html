@@ -4,29 +4,33 @@
   <title>Green Guarden: Login Screen</title>
 
   <meta charset="utf-8"/>
+  <!-- Firebase Dependencies -->
   <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
   <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
   <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
+  
   <script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBM1eKxfY5soposARWN3ZvJv3ndXemRMjg",
-    authDomain: "green-guarden.firebaseapp.com",
-    databaseURL: "https://green-guarden.firebaseio.com",
-    projectId: "green-guarden",
-    storageBucket: "green-guarden.appspot.com",
-    messagingSenderId: "1087673307666"
-  };
-  firebase.initializeApp(config);
-</script>
+    var config = {
+      apiKey: "AIzaSyBM1eKxfY5soposARWN3ZvJv3ndXemRMjg",
+      authDomain: "green-guarden.firebaseapp.com",
+      databaseURL: "https://green-guarden.firebaseio.com",
+      projectId: "green-guarden",
+      storageBucket: "green-guarden.appspot.com",
+      messagingSenderId: "1087673307666"
+    };
+    firebase.initializeApp(config);
+  </script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Yeseva+One" rel="stylesheet">
 </head>
 
 <body>
 
   <script>
-  // Initialize the FirebaseUI Widget using Firebase.
-  var ui = new firebaseui.auth.AuthUI(firebase.auth());
-</script>
+    // Initialize the FirebaseUI Widget using Firebase.
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+  </script>
 
     <!-- The surrounding HTML is left untouched by FirebaseUI.
      Your app may use that space for branding, controls and other customizations.-->
@@ -75,7 +79,7 @@
 
 </script>
 
-<script>
+  <script>
     // The start method will wait until the DOM is loaded.
     ui.start('#firebaseui-auth-container', uiConfig);
   </script>
