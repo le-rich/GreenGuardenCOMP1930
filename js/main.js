@@ -121,6 +121,7 @@ function fetchAndDisplayGrid(){
 	$("#gardenRow").css({"visibility": "visible", "display": "flex"});
 	firebase.auth().onAuthStateChanged(function(user) {
 		var dbRef = firebase.database().ref("users/" + user.uid + "/gardenGrid");
+		var plantRef = firebase.database().ref("users/" + user.uid + "/plants");
 		dbRef.on(
 			"value",
 			function(snap){
@@ -135,6 +136,19 @@ function fetchAndDisplayGrid(){
 			}, function(error){
 				console.log("Error displaying grid: " + error.code);
 			});
+
+		plantRef.on("value", function(snap){
+			snap.forEach(function(snap){
+				console.log(snap.val());
+				$(existingGrid[snap.val()["gridIndex"]]).toggleClass("hasPlant").data("plant", snap.val()["plant"]);
+			});
+
+			$(".hasPlant").each(function(){
+				var plantName = $(this).data("plant");
+				$(this).css({"backgroundImage" : "url('css/img/"+plantName+".jpg')", "backgroundSize" : "cover"});
+				$(this.firstChild).css({"display": "none", "visiblity": "hidden"});
+			});
+		});
 	});
 }
 
@@ -171,10 +185,8 @@ function DisplayList(list){
         var plantName = x;
 		var newRow = $(document.createElement("div")).attr("class", "row");
 		var col = $(document.createElement("div")).attr("class", "col-12");
-        console.log(x);
 		var para = $(document.createElement("button")).attr({"class":"plant", "onclick":'addPlant("'+plantName+'")', "type":"button"});
 		newRow.append(col);
-
 		col.append(para);
 		var overlay = $("#plantOverlay").append(newRow);
 		var node = $(document.createTextNode(x));
@@ -222,13 +234,13 @@ function addPlant(plantName) {
     var selectedBox = boxDiv[box-1];
 
 		$(selectedBox.firstChild).css({"display": "none", "visiblity": "hidden"});
+		var index = (box -1);
     	firebase.database().ref("users/"+ globalUser.uid + "/plants/" + (box-1)).update({
-    		"plant" : plantName
+    		"plant" : plantName,
+    		"gridIndex" : index
     	});
 
 	//}
-
-    
 }
 
 // function addExp(xpToAdd){
