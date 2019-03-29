@@ -1,5 +1,8 @@
+var globalUser;
+
 //Change Title Bar to User Name's Garden
 firebase.auth().onAuthStateChanged(function(user){
+	globalUser = user;
 	//Get User's name and change the title to their garden.
 	var ref = firebase.database().ref("users/" + user.uid);
 	ref.on("value", function(snap) {
@@ -19,11 +22,11 @@ firebase.auth().onAuthStateChanged(function(user){
     		
     	}
     });
+    initUserStats();
 });
 
-$(document).ready(function(){
-	initUserStats();
-});
+
+
 
 //When the create a garden is clicked, fade out and display a garden creator.
 $('#createGardenButton').click(function(){
@@ -53,29 +56,29 @@ function buildCreateAGarden(){
 }
 
 function initUserStats(){
-	firebase.auth().onAuthStateChanged(function(user) {
-		var ref = firebase.database().ref("users/" + user.uid);
-		ref.on("value", function(snap) {
-			$("#expXPCounter").text(snap.val().exp + "XP");
-		});
+	var user = globalUser;
+	var ref = firebase.database().ref("users/" + user.uid);
+	ref.on("value", function(snap) {
+		$("#expXPCounter").text(snap.val().xpStats.exp + "XP");
+	});
 
 		//ref = firebase.database().ref("users/" + user.uid + "/level");
 		ref.on("value", function(snap) {
-			$("#expLevel").text("Level " + snap.val().level);
+			$("#expLevel").text("Level " + snap.val().xpStats.level);
 		});
 
 		//ref = firebase.database().ref("users/" + user.uid + "/name");
 		ref.on("value", function(snap) {
 			$("#expName").text(snap.val().name);
 		});
+		UpdateXPBar();
+	}
+
+	$('#doneBtn').click(function(){
+		buildGrid();
 	});
-}
 
-$('#doneBtn').click(function(){
-	buildGrid();
-});
-
-var existingGrid = $(".gardenPlanter");
+	var existingGrid = $(".gardenPlanter");
 
 //If the user is logged in, get all selected buttons and submit their positions to the db.
 function buildGrid(){
@@ -180,6 +183,25 @@ function DisplayList(list){
     (document,'script','weatherwidget-io-js');
 }
 
+
+function UpdateXPBar(){
+	var xpActual = $("#xpActual");
+	var user = globalUser;
+	var ref = firebase.database().ref("users/" + user.uid + "/xpStats");
+	ref.on("value", function(snap) {
+		var currentXp = snap.val().exp;
+		if (currentXp >=  snap.val().expForLevel){
+			var remainingExp = snap.val().exp - snap.val().expForLevel;
+			console.log("Remaining EXP:"  + remainingExp);
+			currentXp = 0;
+			handleLevelUp(remainingExp, snap.val().expForLevel, snap.val().level);
+		}
+
+		var widthVal = (snap.val().exp / snap.val().expForLevel) * 100;
+		xpActual.css("width", widthVal + "%");
+	});
+}
+
 function addPlant() {
     off();
     var overlay = document.getElementById("plantOverlay");
@@ -195,7 +217,44 @@ function addPlant() {
             plant: "lettuce"
     })
       
-}
+	}
     
 }
 
+// function addExp(xpToAdd){
+// 	var user = globalUser;
+// 		var ref = firebase.database().ref("users/" + user.uid + "/xpStats");
+// 		ref.on("value", function(snap) {
+// 			snap.val().exp += xpToAdd;
+// 			if (snap.val().exp >=  snap.val().expForLevel){
+// 				var remainingExp = snap.val().exp - snap.val().expForLevel;
+// 				handleLevelUp(remainingExp);
+// 			}
+// 		});
+// }
+
+function handleLevelUp(remainingExp, expForLevel, currLevel){
+	var user = globalUser;
+	var ref = firebase.database().ref("users/" + user.uid + "/xpStats");
+	var factor = remainingExp / expForLevel;
+	if (factor > 1){
+		var resultLevel = (currLevel + Math.floor(factor));
+		ref.update({
+			level: resultLevel,
+			exp: remainingExp
+		}).then(function(){
+			UpdateXPBar();
+		});
+		var remainder = remainingExp - (factor * expForLevel);
+
+		handleLevelUp(remainder);
+	}else{
+		var nextLevel = currLevel + 1;
+		firebase.database().ref("users/"+user.uid +"/xpStats").update({
+			level: nextLevel,
+			exp: remainingExp
+		}).then(function(){
+			UpdateXPBar();
+		});
+	}
+}
