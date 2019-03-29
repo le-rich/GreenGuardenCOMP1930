@@ -189,7 +189,8 @@ function addPlant() {
     var selectedBox = boxDiv[box-1];
     while (selectedBox.firstChild) {
     selectedBox.removeChild(selectedBox.firstChild);
-        
+      
+
     firebase.database().ref("users/"+user.uid +"/gardenGrid/" + (box-1)).update({
             plant: "lettuce"
     })
