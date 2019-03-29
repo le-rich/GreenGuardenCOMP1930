@@ -83,7 +83,7 @@ function initUserStats(){
 //If the user wants to add more garden grid
 $('#moreButton').click(function(){
     $('#gardenRow').css({"visibility": "hidden", "display": "none"}).fadeOut("fast",function(){
-        $("#contentRow").fadeIn("fast").css({"visibility": "visible", "display": "block"});
+        $("#contentRow").fadeIn("fast").css({"visibility": "visible", "display": "flex"});
     });
 });
 

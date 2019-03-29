@@ -246,8 +246,8 @@ h1{
     position: fixed;
     right: 15px;
     bottom: 430px;
-    visibility: visible;
-    display: visible;
+    visibility: hidden;
+    display: none;
     border-radius: 5px;
 }
 
@@ -258,10 +258,13 @@ h1{
     
 }
 
+.notifiCOntent:hover{
+    background-color: red;
+}
 
 #notifContainer:hover #notificationFeed{
-   visibility: visible;
     display: block;
+    visibility: visible
     
 }
 
