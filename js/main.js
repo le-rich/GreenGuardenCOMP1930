@@ -172,10 +172,11 @@ function ShowList(category) {
 
 function DisplayList(list){
 	for (x in list) {
+        var plantName = x;
 		var newRow = $(document.createElement("div")).attr("class", "row");
 		var col = $(document.createElement("div")).attr("class", "col-12");
-        
-		var para = $(document.createElement("button")).attr({"class":"plant", "onclick":"addPlant()", "type":"button"});
+        console.log(x);
+		var para = $(document.createElement("button")).attr({"class":"plant", "onclick":'addPlant("'+plantName+'")', "type":"button"});
 		newRow.append(col);
         
         
@@ -218,18 +219,19 @@ function UpdateXPBar(){
 	});
 }
 
-function addPlant() {
+function addPlant(plantName) {
     off();
     var overlay = document.getElementById("plantOverlay");
     var box = overlay.dataset.box;
     var boxDiv = document.getElementsByClassName("gardenPlanter");
-    boxDiv[box-1].style.backgroundColor = "green";
+    boxDiv[box-1].style.backgroundImage = ("url('"+plantName+".jpg')");
+    boxDiv[box-1].style.backgroundSize = "cover";
     var selectedBox = boxDiv[box-1];
 
     //while (selectedBox.firstChild) {
 		$(selectedBox.firstChild).css({"display": "none", "visiblity": "hidden"});
     	firebase.database().ref("users/"+ globalUser.uid + "/plants/" + (box-1)).update({
-    		"plant" : "lettuce"
+    		"plant" : plantName
     	});
 
 	//}
