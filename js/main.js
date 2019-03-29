@@ -37,7 +37,6 @@ $('#createGardenButton').click(function(){
 });
 
 
-
 //Creates a 5 x 5 Garden Grid
 //TODO: Make this accept arbitrary sized array.
 function buildCreateAGarden(){
@@ -80,18 +79,13 @@ function initUserStats(){
 		buildGrid();
 	});
 
-
-
 $('#moreButton').click(function(){
     $('#gardenRow').css({"visibility": "hidden", "display": "none"}).fadeOut("fast",function(){
         $("#contentRow").fadeIn("fast").css({"visibility": "visible", "display": "block"});
     });
 });
 
-
 var existingGrid = $(".gardenPlanter");
-
-
 
 //If the user is logged in, get all selected buttons and submit their positions to the db.
 function buildGrid(){
@@ -231,15 +225,15 @@ function addPlant() {
     var boxDiv = document.getElementsByClassName("gardenPlanter");
     boxDiv[box-1].style.backgroundColor = "green";
     var selectedBox = boxDiv[box-1];
-    while (selectedBox.firstChild) {
-    selectedBox.removeChild(selectedBox.firstChild);
-      
 
-        firebase.database().ref("users/"+globalUser.uid +"/gardenGrid/" + (box-1)).update({
-            plant: "lettuce"
-        });
-      
-	}
+    //while (selectedBox.firstChild) {
+		$(selectedBox.firstChild).css({"display": "none", "visiblity": "hidden"});
+    	firebase.database().ref("users/"+ globalUser.uid + "/plants/" + (box-1)).update({
+    		"plant" : "lettuce"
+    	});
+
+	//}
+
     
 }
 
