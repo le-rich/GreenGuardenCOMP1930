@@ -45,8 +45,7 @@
           	//Update database with the profile info collected for the user
           	var promise = firebase.database().ref('users/'+user.uid).update( {
 				      "name": name,
-              "level": 1,
-              "exp" : 0
+              "xpStats" : {"exp": "0", "level": 1, "expForLevel": "3600"}
          	 });
           
          	//When the databate update is done, then go to main.html
