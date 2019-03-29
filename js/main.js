@@ -124,6 +124,7 @@ function fetchAndDisplayGrid(){
 function on(box) {
 	document.getElementById("plantOverlay").style.display = "block";
 	document.getElementById("plantOverlay").style.visibility = "visible";
+
     $("#plantOverlay").attr("data-box",box);
 }
 
@@ -181,6 +182,19 @@ function DisplayList(list){
 
 function addPlant() {
     off();
-    var box = $("#plantOverlay").dataset.box;
+    var overlay = document.getElementById("plantOverlay");
+    var box = overlay.dataset.box;
+    var boxDiv = document.getElementsByClassName("gardenPlanter");
+    boxDiv[box-1].style.backgroundColor = "green";
+    var selectedBox = boxDiv[box-1];
+    while (selectedBox.firstChild) {
+    selectedBox.removeChild(selectedBox.firstChild);
+        
+    firebase.database().ref("users/"+user.uid +"/gardenGrid/" + (box-1)).update({
+            plant: "lettuce"
+    })
+      
+}
+    
 }
 
