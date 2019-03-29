@@ -213,9 +213,9 @@ function addPlant() {
     selectedBox.removeChild(selectedBox.firstChild);
       
 
-    firebase.database().ref("users/"+user.uid +"/gardenGrid/" + (box-1)).update({
+    firebase.database().ref("users/"+globalUser.uid +"/gardenGrid/" + (box-1)).update({
             plant: "lettuce"
-    })
+    });
       
 	}
     
