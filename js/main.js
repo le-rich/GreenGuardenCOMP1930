@@ -124,15 +124,23 @@ function fetchAndDisplayGrid(){
 	});
 }
 
-function on() {
+function on(box) {
 	document.getElementById("plantOverlay").style.display = "block";
 	document.getElementById("plantOverlay").style.visibility = "visible";
+
+    $("#plantOverlay").attr("data-box",box);
 }
 
 function off() {
 	document.getElementById("plantOverlay").style.display = "none";
 	document.getElementById("plantOverlay").style.visibility = "hidden";
 }
+
+
+
+
+
+
 
 
 $(document).ready(function() {
@@ -149,17 +157,30 @@ function ShowList(category) {
     });
 }
 
+
+
 function DisplayList(list){
 	for (x in list) {
 		var newRow = $(document.createElement("div")).attr("class", "row");
 		var col = $(document.createElement("div")).attr("class", "col-12");
-		var para = $(document.createElement("p"));
+		var para = $(document.createElement("button")).attr({"class":"plant", "onclick":"addPlant()", "type":"button"});
 		newRow.append(col);
 		col.append(para);
 		var overlay = $("#plantOverlay").append(newRow);
 		var node = $(document.createTextNode(x));
 		para.append(node);
 	}
+    
+!function(d,s,id){
+        var js,fjs=d.getElementsByTagName(s)[0];
+        if(!d.getElementById(id))
+        {
+            js=d.createElement(s);
+        js.id=id;
+        js.src='https://weatherwidget.io/js/widget.min.js';
+        fjs.parentNode.insertBefore(js,fjs);}
+    }
+    (document,'script','weatherwidget-io-js');
 }
 
 
@@ -181,6 +202,23 @@ function UpdateXPBar(){
 	});
 }
 
+function addPlant() {
+    off();
+    var overlay = document.getElementById("plantOverlay");
+    var box = overlay.dataset.box;
+    var boxDiv = document.getElementsByClassName("gardenPlanter");
+    boxDiv[box-1].style.backgroundColor = "green";
+    var selectedBox = boxDiv[box-1];
+    while (selectedBox.firstChild) {
+    selectedBox.removeChild(selectedBox.firstChild);
+        
+    firebase.database().ref("users/"+user.uid +"/gardenGrid/" + (box-1)).update({
+            plant: "lettuce"
+    })
+      
+	}
+    
+}
 
 // function addExp(xpToAdd){
 // 	var user = globalUser;
