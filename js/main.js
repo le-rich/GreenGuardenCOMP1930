@@ -77,6 +77,7 @@ function initUserStats(){
 
 	$('#doneBtn').click(function(){
 		buildGrid();
+		fetchAndDisplayGrid();
 	});
 
 
@@ -84,6 +85,7 @@ function initUserStats(){
 $('#moreButton').click(function(){
     $('#gardenRow').css({"visibility": "hidden", "display": "none"}).fadeOut("fast",function(){
         $("#contentRow").fadeIn("fast").css({"visibility": "visible", "display": "block"});
+        buildCreateAGarden();
     });
 });
 
@@ -107,7 +109,6 @@ function buildGrid(){
 
 	//Fades out the creator row.
 	$("#contentRow").fadeOut("fast");
-    fetchAndDisplayGrid();
 }
 
 
@@ -117,10 +118,14 @@ function buildGrid(){
 //Fetches gardenGrid from firebase and constructs a bootstrap layout.
 function fetchAndDisplayGrid(){
 	console.log("Fetch and Display");
-	$("#gardenRow").css({"visibility": "visible", "display": "flex"});
 	firebase.auth().onAuthStateChanged(function(user) {
 		var dbRef = firebase.database().ref("users/" + user.uid + "/gardenGrid");
 		var plantRef = firebase.database().ref("users/" + user.uid + "/plants");
+
+		$(".dbPosActive").each(function(){
+			$(this).removeClass("dbPosActive");
+		});
+
 		dbRef.on(
 			"value",
 			function(snap){
@@ -130,6 +135,8 @@ function fetchAndDisplayGrid(){
 				$(".gardenPlanter").each(function(){
 					if (!$(this).hasClass("dbPosActive")){
 						$(this).css({"visiblity": "hidden", "opacity": "0", "user-select": "none"});
+					}else{
+						$(this).css({"visiblity": "visible", "opacity": "1", "user-select": "auto"});
 					}
 				});
 			}, function(error){
@@ -147,6 +154,7 @@ function fetchAndDisplayGrid(){
 				$(this.firstChild).css({"display": "none", "visiblity": "hidden"});
 			});
 		});
+		$("#gardenRow").css({"visibility": "visible", "display": "flex"});
 	});
 }
 
