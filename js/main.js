@@ -36,6 +36,8 @@ $('#createGardenButton').click(function(){
 	});
 });
 
+
+
 //Creates a 5 x 5 Garden Grid
 //TODO: Make this accept arbitrary sized array.
 function buildCreateAGarden(){
@@ -78,7 +80,19 @@ function initUserStats(){
 		buildGrid();
 	});
 
+<<<<<<< HEAD
+
+$('#moreButton').click(function(){
+    $('#gardenRow').css({"visibility": "hidden", "display": "none"}).fadeOut("fast",function(){
+        $("#contentRow").fadeIn("fast").css({"visibility": "visible", "display": "block"});
+    });
+});
+
+
+var existingGrid = $(".gardenPlanter");
+=======
 	var existingGrid = $(".gardenPlanter");
+>>>>>>> af3984404996b89ea46719941231ac566c22d2e7
 
 //If the user is logged in, get all selected buttons and submit their positions to the db.
 function buildGrid(){
@@ -100,6 +114,10 @@ function buildGrid(){
 	//Fades out the creator row.
 	$("#contentRow").fadeOut("fast");
 }
+
+
+
+
 
 //Fetches gardenGrid from firebase and constructs a bootstrap layout.
 function fetchAndDisplayGrid(){
@@ -163,12 +181,17 @@ function DisplayList(list){
 	for (x in list) {
 		var newRow = $(document.createElement("div")).attr("class", "row");
 		var col = $(document.createElement("div")).attr("class", "col-12");
+        
 		var para = $(document.createElement("button")).attr({"class":"plant", "onclick":"addPlant()", "type":"button"});
 		newRow.append(col);
+        
+        
+        
 		col.append(para);
 		var overlay = $("#plantOverlay").append(newRow);
 		var node = $(document.createTextNode(x));
 		para.append(node);
+
 	}
     
 !function(d,s,id){

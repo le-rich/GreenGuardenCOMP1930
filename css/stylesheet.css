@@ -111,9 +111,18 @@ html, body{
 }
 
 .plant {
+<<<<<<< HEAD
+    width: 60%;
+    background-color: #4CAF50;
+    border: 2px solid black;
+    border-radius: 25px;
+    margin-top: 5px;
+    
+=======
     width: 95%;
     margin: 3px;
     font-weight: bold;
+>>>>>>> af3984404996b89ea46719941231ac566c22d2e7
 }
 
 #plantOverlay {
@@ -126,6 +135,10 @@ html, body{
     left: 2%;
     top: 25%;
     z-index: 10000;
+    border-radius: 25px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center
 }
 
 #close {
@@ -239,3 +252,4 @@ h1{
     display: block;
     
 }
+
