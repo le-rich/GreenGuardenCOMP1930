@@ -29,14 +29,16 @@
 <body>
     
   <div id="notificationFeed"></div>
+    <div><button id="moreButton">Add More Garden Grids</button></div>
     
   <div id="plantOverlay" class="container-fluid">
-    <button id="close" type="button" onclick="off()">Done</button>
+    
     <div class="row">
       <div class="col-8 mx-auto text-center">
         Available Plants
       </div>
     </div>
+      <button id="close" type="button" onclick="off()">X</button>
   </div>
   <div id="uiContainer" class="container-fluid">
     <div class="row mt-3">
@@ -146,7 +148,7 @@
         </div>
         <div class="row">
           <div class="col-1 mx-auto text-center mt-3">
-            <button id="doneBtn" type="button" class="btn btn-primary">Done</button>
+            <span id="doneButton"><button id="doneBtn" type="button" class="btn btn-primary">Done</button></span>
           </div>
         </div>
       </div>
