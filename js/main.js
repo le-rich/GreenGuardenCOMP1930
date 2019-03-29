@@ -147,13 +147,6 @@ function off() {
 	document.getElementById("plantOverlay").style.visibility = "hidden";
 }
 
-
-
-
-
-
-
-
 $(document).ready(function() {
 	ShowList("Plants");
 });
@@ -178,14 +171,11 @@ function DisplayList(list){
         console.log(x);
 		var para = $(document.createElement("button")).attr({"class":"plant", "onclick":'addPlant("'+plantName+'")', "type":"button"});
 		newRow.append(col);
-        
-        
-        
+
 		col.append(para);
 		var overlay = $("#plantOverlay").append(newRow);
 		var node = $(document.createTextNode(x));
 		para.append(node);
-
 	}
     
 !function(d,s,id){
@@ -224,11 +214,10 @@ function addPlant(plantName) {
     var overlay = document.getElementById("plantOverlay");
     var box = overlay.dataset.box;
     var boxDiv = document.getElementsByClassName("gardenPlanter");
-    boxDiv[box-1].style.backgroundImage = ("url('"+plantName+".jpg')");
+    boxDiv[box-1].style.backgroundImage = ("url('css/img/"+plantName+".jpg')");
     boxDiv[box-1].style.backgroundSize = "cover";
     var selectedBox = boxDiv[box-1];
 
-    //while (selectedBox.firstChild) {
 		$(selectedBox.firstChild).css({"display": "none", "visiblity": "hidden"});
     	firebase.database().ref("users/"+ globalUser.uid + "/plants/" + (box-1)).update({
     		"plant" : plantName
