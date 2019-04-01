@@ -9,7 +9,8 @@ firebase.auth().onAuthStateChanged(function(user){
 		var stringName = JSON.stringify(snap.val().name);
 		stringName = stringName.substring(1, stringName.length -1);
 		var userName = document.getElementById("title");
-		userName.innerHTML =  stringName+ "'s Garden";
+		$("#title").text(stringName + "'s Garden");
+		//userName.innerHTML =  stringName+ "'s Garden";
 	});
 
     //Get if the user has already created a garden, if so, load it.
@@ -18,8 +19,7 @@ firebase.auth().onAuthStateChanged(function(user){
     	if (snap.val() == true){
     		$("#createGardenButton").css({"visibility": "hidden", "display": "none"});
     		console.log("Fetched from Startup");
-    		fetchAndDisplayGrid();
-    		
+    		fetchAndDisplayGrid();	
     	}
     });
     initUserStats();
@@ -78,19 +78,17 @@ function initUserStats(){
 	$('#doneBtn').click(function(){
 		buildGrid();
 		fetchAndDisplayGrid();
+		$("#moreButton").fadeIn("fase");
 	});
 
 
 //If the user wants to add more garden grid
 $('#moreButton').click(function(){
     $('#gardenRow').css({"visibility": "hidden", "display": "none"}).fadeOut("fast",function(){
-<<<<<<< HEAD
-        $("#contentRow").fadeIn("fast").css({"visibility": "visible", "display": "block"});
         buildCreateAGarden();
-=======
         $("#contentRow").fadeIn("fast").css({"visibility": "visible", "display": "flex"});
->>>>>>> 45a034d1126d8f4743229316b7ceca735663246c
     });
+    $(this).fadeOut("fast");
 });
 
 var existingGrid = $(".gardenPlanter");
