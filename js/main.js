@@ -114,9 +114,6 @@ function buildGrid(){
 }
 
 
-
-
-
 //Fetches gardenGrid from firebase and constructs a bootstrap layout.
 function fetchAndDisplayGrid(){
 	console.log("Fetch and Display");
@@ -200,6 +197,7 @@ function DisplayList(list){
 		var node = $(document.createTextNode(x));
 		para.append(node);
 	}
+
     
 !function(d,s,id){
         var js,fjs=d.getElementsByTagName(s)[0];
@@ -239,15 +237,33 @@ function addPlant(plantName) {
     boxDiv[box-1].style.backgroundImage = ("url('css/img/"+plantName+".jpg')");
     boxDiv[box-1].style.backgroundSize = "cover";
     var selectedBox = boxDiv[box-1];
+	$(selectedBox.firstChild).css({"display": "none", "visiblity": "hidden"});
+	var index = (box -1);
+	var today = new Date();
+	var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	var dateTime = date + ' ' + time;
 
-		$(selectedBox.firstChild).css({"display": "none", "visiblity": "hidden"});
-		var index = (box -1);
-    	firebase.database().ref("users/"+ globalUser.uid + "/plants/" + (box-1)).update({
+
+
+	var dbPlantRef = firebase.database().ref("Plants/" + plantName);
+	dbPlantRef.on("value", function(snap){
+		//var nextWaterDate = addHours(today, snap.val()["timeToWater"]);
+		var waterInHours = snap.val()["timeToWater"];
+		var now = new Date();
+		var nextWaterDate = now.add(snap.val()["timeToWater"]).hours().toString('yyyy/M/d H:m:s');
+		firebase.database().ref("users/"+ globalUser.uid + "/plants/" + (box-1)).update({
     		"plant" : plantName,
-    		"gridIndex" : index
-    	});
+    		"gridIndex" : index,
+    		"dateToWater" : nextWaterDate
+		});
+	});
+	
+    
+}
 
-	//}
+function addHours(date, hours){
+	return new Date(date.getTime() + (hours * 60 * 60 * 1000));
 }
 
 // function addExp(xpToAdd){
