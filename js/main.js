@@ -10,7 +10,6 @@ firebase.auth().onAuthStateChanged(function(user){
 		stringName = stringName.substring(1, stringName.length -1);
 		var userName = document.getElementById("title");
 		$("#title").text(stringName + "'s Garden");
-		//userName.innerHTML =  stringName+ "'s Garden";
 	});
 
     //Get if the user has already created a garden, if so, load it.
@@ -40,7 +39,6 @@ $("#signOut").click(function(){
 $('#createGardenButton').click(function(){
 	$('#createGardenButton').fadeOut("fast",function(){
 		$("#contentRow").css({"visibility": "visible", "display": "flex"});
-		buildCreateAGarden();
 	});
 });
 
@@ -48,15 +46,28 @@ $('#createGardenButton').click(function(){
 //Creates a 5 x 5 Garden Grid
 //TODO: Make this accept arbitrary sized array.
 function buildCreateAGarden(){
+	//Create Each Button
 	for (var y = 0; y < 5; y++){
 		var newRow = "<div id=" + "row" + (y + 1) + " class=\"btn-group\">";
 		$("#btn-container").append(newRow);
 		var appendedRow = $("#row" + (y + 1));
 		for (var x = 0; x < 5; x++){
-			var newButton = "<button class=\"gardenBtn\" data-pos=\"[" + x + "," + y +"]\">1</button>"
+			var newButton = "<button" + " id=\"" + x + y + "\"" + "class=\"gardenBtn\" data-pos=\"[" + x + "," + y +"]\">1</button>"
 			$("#row" + (y + 1)).append(newButton);
 		}
 	}
+
+	//If a planter exists in that location already from db, load it.
+	firebase.auth().onAuthStateChanged(function(user) {
+		var plantRef = firebase.database().ref("users/" + user.uid + "/gardenGrid");
+		plantRef.on("value", function(snap){
+			for (var pos in snap.val()){
+				var key = "" + snap.val()[pos][0] + snap.val()[pos][1];
+				console.log(key);
+				$("#" + key).addClass("selected");
+			}
+		});
+	});
 
 	//When a garden Button is clicked, add the class selected to that button.
 	$('.gardenBtn').click(function(){
@@ -71,29 +82,29 @@ function initUserStats(){
 		$("#expXPCounter").text(snap.val().xpStats.exp + "XP");
 	});
 
-		//ref = firebase.database().ref("users/" + user.uid + "/level");
-		ref.on("value", function(snap) {
-			$("#expLevel").text("Level " + snap.val().xpStats.level);
-		});
-
-		//ref = firebase.database().ref("users/" + user.uid + "/name");
-		ref.on("value", function(snap) {
-			$("#expName").text(snap.val().name);
-		});
-		UpdateXPBar();
-	}
-
-	$('#doneBtn').click(function(){
-		buildGrid();
-		fetchAndDisplayGrid();
-		$("#moreButton").fadeIn("fase");
+	//ref = firebase.database().ref("users/" + user.uid + "/level");
+	ref.on("value", function(snap) {
+		$("#expLevel").text("Level " + snap.val().xpStats.level);
 	});
+
+	//ref = firebase.database().ref("users/" + user.uid + "/name");
+	ref.on("value", function(snap) {
+		$("#expName").text(snap.val().name);
+	});
+	UpdateXPBar();
+}
+
+$('#doneBtn').click(function(){
+	buildGrid();
+	fetchAndDisplayGrid();
+	$("#moreButton").fadeIn("fast");
+});
 
 
 //If the user wants to add more garden grid
 $('#moreButton').click(function(){
     $('#gardenRow').css({"visibility": "hidden", "display": "none"}).fadeOut("fast",function(){
-        buildCreateAGarden();
+        //buildCreateAGarden();
         $("#contentRow").fadeIn("fast").css({"visibility": "visible", "display": "flex"});
     });
     $(this).fadeOut("fast");
@@ -156,6 +167,7 @@ function fetchAndDisplayGrid(){
 			});
 
 			$(".hasPlant").each(function(){
+				//Hides the add plant button on given garden grid.
 				var plantName = $(this).data("plant");
 				$(this).css({"backgroundImage" : "url('css/img/"+plantName+".jpg')", "backgroundSize" : "cover"});
 				$(this.firstChild).css({"display": "none", "visiblity": "hidden"});
@@ -179,6 +191,7 @@ function off() {
 
 $(document).ready(function() {
 	ShowList("Plants");
+	buildCreateAGarden();
 });
 
 function ShowList(category) {
@@ -253,21 +266,20 @@ function addPlant(plantName) {
 	var dateTime = date + ' ' + time;
 
 
-
 	var dbPlantRef = firebase.database().ref("Plants/" + plantName);
 	dbPlantRef.on("value", function(snap){
-		//var nextWaterDate = addHours(today, snap.val()["timeToWater"]);
 		var waterInHours = snap.val()["timeToWater"];
+		var pickInHours = snap.val()["timeToPick"];
 		var now = new Date();
-		var nextWaterDate = now.add(snap.val()["timeToWater"]).hours().toString('yyyy/M/d H:m:s');
+		var nextWaterDate = now.add(waterInHours).hours().toString('yyyy/M/d H:m:s');
+		var nextPickDate = now.add(pickInHours).hours().toString('yyyy/M/d H:m:s');
 		firebase.database().ref("users/"+ globalUser.uid + "/plants/" + (box-1)).update({
     		"plant" : plantName,
     		"gridIndex" : index,
-    		"dateToWater" : nextWaterDate
+    		"dateToWater" : nextWaterDate,
+    		"dateToPick" : nextPickDate
 		});
 	});
-	
-    
 }
 
 function addHours(date, hours){
