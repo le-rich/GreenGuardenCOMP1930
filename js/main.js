@@ -32,8 +32,9 @@ firebase.auth().onAuthStateChanged(function(user){
 $('#createGardenButton').click(function(){
 	$('#createGardenButton').fadeOut("fast",function(){
 		$("#contentRow").css({"visibility": "visible", "display": "flex"});
-		buildCreateAGarden();
+		
 	});
+    buildCreateAGarden();
 });
 
 
@@ -84,7 +85,9 @@ function initUserStats(){
 $('#moreButton').click(function(){
     $('#gardenRow').css({"visibility": "hidden", "display": "none"}).fadeOut("fast",function(){
         $("#contentRow").fadeIn("fast").css({"visibility": "visible", "display": "flex"});
+        
     });
+    fetchAndDisplayGrid();
 });
 
 var existingGrid = $(".gardenPlanter");
@@ -243,6 +246,18 @@ function addPlant(plantName) {
 	//}
 }
 
+
+
+
+
+
+
+function notification{
+    var notificatio1 = document.getElementById("notificationFeed");
+    var dbRef = firebase.database().ref()()
+    
+
+}
 // function addExp(xpToAdd){
 // 	var user = globalUser;
 // 		var ref = firebase.database().ref("users/" + user.uid + "/xpStats");
