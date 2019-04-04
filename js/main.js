@@ -9,7 +9,8 @@ firebase.auth().onAuthStateChanged(function(user){
 		var stringName = JSON.stringify(snap.val().name);
 		stringName = stringName.substring(1, stringName.length -1);
 		var userName = document.getElementById("title");
-		userName.innerHTML =  stringName+ "'s Garden";
+		$("#title").text(stringName + "'s Garden");
+		//userName.innerHTML =  stringName+ "'s Garden";
 	});
 
     //Get if the user has already created a garden, if so, load it.
@@ -18,14 +19,21 @@ firebase.auth().onAuthStateChanged(function(user){
     	if (snap.val() == true){
     		$("#createGardenButton").css({"visibility": "hidden", "display": "none"});
     		console.log("Fetched from Startup");
-    		fetchAndDisplayGrid();
-    		
+    		fetchAndDisplayGrid();	
     	}
     });
     initUserStats();
 });
 
 
+$("#signOut").click(function(){
+	firebase.auth().signOut().then(function() {
+  		// Sign-out successful.
+  		window.location.href="login.html";
+	}).catch(function(error) {
+  		// An error happened.
+	});
+});
 
 
 //When the create a garden is clicked, fade out and display a garden creator.
@@ -78,23 +86,29 @@ function initUserStats(){
 
 	$('#doneBtn').click(function(){
 		buildGrid();
+		fetchAndDisplayGrid();
+		$("#moreButton").fadeIn("fase");
 	});
 
 
 //If the user wants to add more garden grid
 $('#moreButton').click(function(){
     $('#gardenRow').css({"visibility": "hidden", "display": "none"}).fadeOut("fast",function(){
+        buildCreateAGarden();
         $("#contentRow").fadeIn("fast").css({"visibility": "visible", "display": "flex"});
         
     });
+<<<<<<< HEAD
     fetchAndDisplayGrid();
+=======
+    $(this).fadeOut("fast");
+>>>>>>> 02bed20f5741a52bb1f918f3780501fb7d5f397d
 });
 
 var existingGrid = $(".gardenPlanter");
 
 //If the user is logged in, get all selected buttons and submit their positions to the db.
 function buildGrid(){
-	console.log("build");
 	firebase.auth().onAuthStateChanged(function(user) {
 		if (user) {
 			var gardenArr = [];
@@ -111,20 +125,20 @@ function buildGrid(){
 
 	//Fades out the creator row.
 	$("#contentRow").fadeOut("fast");
-    fetchAndDisplayGrid();
 }
-
-
-
 
 
 //Fetches gardenGrid from firebase and constructs a bootstrap layout.
 function fetchAndDisplayGrid(){
 	console.log("Fetch and Display");
-	$("#gardenRow").css({"visibility": "visible", "display": "flex"});
 	firebase.auth().onAuthStateChanged(function(user) {
 		var dbRef = firebase.database().ref("users/" + user.uid + "/gardenGrid");
 		var plantRef = firebase.database().ref("users/" + user.uid + "/plants");
+
+		$(".dbPosActive").each(function(){
+			$(this).removeClass("dbPosActive");
+		});
+
 		dbRef.on(
 			"value",
 			function(snap){
@@ -134,6 +148,8 @@ function fetchAndDisplayGrid(){
 				$(".gardenPlanter").each(function(){
 					if (!$(this).hasClass("dbPosActive")){
 						$(this).css({"visiblity": "hidden", "opacity": "0", "user-select": "none"});
+					}else{
+						$(this).css({"visiblity": "visible", "opacity": "1", "user-select": "auto"});
 					}
 				});
 			}, function(error){
@@ -142,7 +158,6 @@ function fetchAndDisplayGrid(){
 
 		plantRef.on("value", function(snap){
 			snap.forEach(function(snap){
-				console.log(snap.val());
 				$(existingGrid[snap.val()["gridIndex"]]).toggleClass("hasPlant").data("plant", snap.val()["plant"]);
 			});
 
@@ -152,6 +167,7 @@ function fetchAndDisplayGrid(){
 				$(this.firstChild).css({"display": "none", "visiblity": "hidden"});
 			});
 		});
+		$("#gardenRow").css({"visibility": "visible", "display": "flex"});
 	});
 }
 
@@ -195,6 +211,7 @@ function DisplayList(list){
 		var node = $(document.createTextNode(x));
 		para.append(node);
 	}
+
     
 !function(d,s,id){
         var js,fjs=d.getElementsByTagName(s)[0];
@@ -217,7 +234,6 @@ function UpdateXPBar(){
 		var currentXp = snap.val().exp;
 		if (currentXp >=  snap.val().expForLevel){
 			var remainingExp = snap.val().exp - snap.val().expForLevel;
-			console.log("Remaining EXP:"  + remainingExp);
 			currentXp = 0;
 			handleLevelUp(remainingExp, snap.val().expForLevel, snap.val().level);
 		}
@@ -235,15 +251,33 @@ function addPlant(plantName) {
     boxDiv[box-1].style.backgroundImage = ("url('css/img/"+plantName+".jpg')");
     boxDiv[box-1].style.backgroundSize = "cover";
     var selectedBox = boxDiv[box-1];
+	$(selectedBox.firstChild).css({"display": "none", "visiblity": "hidden"});
+	var index = (box -1);
+	var today = new Date();
+	var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+	var dateTime = date + ' ' + time;
 
-		$(selectedBox.firstChild).css({"display": "none", "visiblity": "hidden"});
-		var index = (box -1);
-    	firebase.database().ref("users/"+ globalUser.uid + "/plants/" + (box-1)).update({
+
+
+	var dbPlantRef = firebase.database().ref("Plants/" + plantName);
+	dbPlantRef.on("value", function(snap){
+		//var nextWaterDate = addHours(today, snap.val()["timeToWater"]);
+		var waterInHours = snap.val()["timeToWater"];
+		var now = new Date();
+		var nextWaterDate = now.add(snap.val()["timeToWater"]).hours().toString('yyyy/M/d H:m:s');
+		firebase.database().ref("users/"+ globalUser.uid + "/plants/" + (box-1)).update({
     		"plant" : plantName,
-    		"gridIndex" : index
-    	});
+    		"gridIndex" : index,
+    		"dateToWater" : nextWaterDate
+		});
+	});
+	
+    
+}
 
-	//}
+function addHours(date, hours){
+	return new Date(date.getTime() + (hours * 60 * 60 * 1000));
 }
 
 

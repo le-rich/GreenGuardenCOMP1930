@@ -7,9 +7,7 @@
 
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
- 
- 
-<!-- Firebase -->
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
   <script>
     // Initialize Firebase
@@ -23,12 +21,9 @@
     };
     firebase.initializeApp(config);
   </script>
-
   <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 </head>
-<body>
-    
-    
+<body>  
   <div id="notificationFeed">Notification Header
     <div class="notifiContent">Notification 1</div>
     <div class="notifiContent">Notification 2</div>
@@ -36,12 +31,16 @@
     <div class="notifiContent">Notification 4</div>
     <div class="notifiContent">Notification 5</div>
     <div class="notifiContent">Notification 6</div>
+
     </div>
     
 <div><button id="moreButton">Add More Garden Grids</button></div>
+
+    <div class="notifiContent">Notification 7</div>  
+  
+
     
   <div id="plantOverlay" class="container-fluid">
-    
     <div class="row">
       <div class="col-8 mx-auto text-center">
         Available Plants
@@ -56,6 +55,7 @@
           <div class="row"> 
             <div class="col-3 my-auto">
               <img src="css/img/thumb.PNG" width="100%" height="auto">
+              <p id="signOut">Sign Out</p>
             </div>
             <div class="col-9 container-fluid">
               <div class="row">
@@ -86,8 +86,15 @@
           </div>
         </div>
       </div>
-      <div class="col-6 text-center" id = "title">
-        GARDEN TITLE
+      <div class="col-6 text-center">
+        <div class="container-fluid">
+          <div class="row">
+            <div id="title" class="col-12">Garden Title</div>
+            <div class="col-12">
+              <button id="moreButton">Edit</button>
+            </div>
+          </div>
+        </div>
       </div>
         
       <div class="col-3 text-center">
@@ -167,6 +174,11 @@
       
    
   </div>
+
+  <!-- Date.js -->
+  <script type="text/javascript" src="js/date.js"></script>
+  <!-- Date CultureInfo for Canada -->
+  <script type="text/javascript" src="js/date-en-CA.js"></script>
   <!-- Bootstrap Dependencies -->
   <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -177,9 +189,7 @@
 
   <!-- Custom -->
   <script type="text/javascript" src="js/main.js"></script>
-    <!-- Weather -->
-<script>
-
-</script>    
+  <!-- Weather -->
+  <script></script>    
 </body>
 </html>

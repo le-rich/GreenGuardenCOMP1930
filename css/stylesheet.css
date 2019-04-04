@@ -19,6 +19,7 @@ html, body{
     border-radius: 10px;
     background-color: #4CAF50;
     border: 1px solid black;
+    pointer-events: auto;
 }
 
 #xpFull{
@@ -147,6 +148,10 @@ html, body{
 #close {
     bottom: 10px;
     right: 10px;
+}
+
+#signOut:hover{
+  cursor: pointer;
 }
 
 .selected{
