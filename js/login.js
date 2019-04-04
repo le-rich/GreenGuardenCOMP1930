@@ -40,9 +40,13 @@ function createFirebaseAccount(){
         		"plants": ""
         	});
 
+        	$("#loginMessage").text("Welcome!");
+        	
         	//When the databate update is done, then go to main.html
         	promise.then(function() {
-        		window.location.href="index.html";
+        		$("#all").toggleClass("animated fadeOutUp faster").on("webkitAnimationEnd oAnimationEnd msAnimationEnd animationend", function(e) {
+					window.location.href="index.html";
+				});
         	});
     	});
 		return firebaseUser;
@@ -61,8 +65,11 @@ function loginFirebaseAccount(){
 	loginProcessing = true;
 	firebase.auth().signInWithEmailAndPassword(email, pass).then(function(firebaseUser){
 		firebase.auth().onAuthStateChanged(function(user){
-			//$("#all").toggleClass("animated fadeOutUp faster");
-			window.location.href = "index.html";
+			$("#all").toggleClass("animated fadeOutUp faster").on("webkitAnimationEnd oAnimationEnd msAnimationEnd animationend", function(e) {
+				$("#loginMessage").text("Welcome Back!");
+				window.location.href = "index.html";
+			});
+			
 		});
 	}).catch(function(error) {
 		alert(error);
