@@ -150,6 +150,10 @@ html, body{
     right: 10px;
 }
 
+#signOut:hover{
+  cursor: pointer;
+}
+
 .selected{
   background-color: red !important;
 }

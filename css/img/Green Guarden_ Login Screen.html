@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<!-- saved from url=(0106)file:///C:/Users/Richa/Dropbox/BCIT%20Term%201/COMP%201930/Project%20Repo/GreenGuardenCOMP1930/login.html? -->
+<html lang="en" class="mdl-js"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>Green Guarden: Login Screen</title>
-  <meta charset="utf-8">
+  
   <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="./Green Guarden_ Login Screen_files/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- Firebase Dependencies -->
-  <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
-  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
-  <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
+  <script src="./Green Guarden_ Login Screen_files/firebaseui.js.download"></script>
+  <link type="text/css" rel="stylesheet" href="./Green Guarden_ Login Screen_files/firebaseui.css">
+  <script src="./Green Guarden_ Login Screen_files/firebase.js.download"></script>
   <script>
     var config = {
       apiKey: "AIzaSyBM1eKxfY5soposARWN3ZvJv3ndXemRMjg",
@@ -21,13 +21,13 @@
     firebase.initializeApp(config);
   </script>
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans|Permanent+Marker" rel="stylesheet">
+  <link href="./Green Guarden_ Login Screen_files/css" rel="stylesheet">
   <!-- FontAwesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="./Green Guarden_ Login Screen_files/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
   <!-- Animate.css -->
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <link rel="stylesheet" type="text/css" href="./Green Guarden_ Login Screen_files/animate.min.css">
   <!-- Custom CSS -->
-  <link rel="stylesheet" type="text/css" href="css/login.css">
+  <link rel="stylesheet" type="text/css" href="file:///C:/Users/Richa/Dropbox/BCIT%20Term%201/COMP%201930/Project%20Repo/GreenGuardenCOMP1930/css/login.css">
 </head>
 
 <body onload="loadDone()">
@@ -40,14 +40,14 @@
     <!-- The surrounding HTML is left untouched by FirebaseUI.
      Your app may use that space for branding, controls and other customizations.-->
      <div class="background"></div>
-     <div id="overlayLoad" class="container-fluid">
+     <div id="overlayLoad" class="container-fluid" style="display: none;">
       <div class="row">
         <div id="overlayInner" class=" col-3 text-center mx-auto animated infinite pulse faster">
           Loading...
         </div>
       </div>
     </div>
-    <div id="allContainer" class="container-fluid">
+    <div id="allContainer" class="container-fluid" style="display: block; visibility: visible;">
       <div class="row mt-top">
         <div id="title" class="col-8 mx-auto text-center animated fadeInUp fast my-5">
           Green Guarden
@@ -57,39 +57,38 @@
         <div class="col-3 mx-auto">
           <div id="signupContainer" class="container-fluid pt-5 pb-3 text-center">
             <div class="row">
-              <div id="signupLabel" class="col-8 mx-auto mb-5">Create Your Account</div>
-              <div id="spinnerCol" class="col-1" hidden>
-                <div class="spinner-border text-success" role="status">
-                  <span class="sr-only">Loading...</span>
-                </div>
-              </div>
+              <div id="signupLabel" class="col-8 mx-auto mb-5">Sign Up</div>
             </div>
-            <form action="" id="signupForm">
+            <form id="signupForm">
              <div class="form-group row">
-              <div id="userField" class="col-8 mx-auto my-2 formIcon">
-                <input id="userFieldInput" type="text" class="formField" placeholder="Username" name="username" required>
+              <div class="col-8 mx-auto my-2 formIcon">
+                <input type="text" class="formField" placeholder="Username" name="" required="" style="
+    position: relative;
+">
               </div>
              </div>
              <div class="form-group row">
-              <div id="emailContainer" class="col-8 mx-auto my-2 formIcon">
-                <input id="emailFieldInput" type="email" class="formField" placeholder="Email Address" name="email" required>
+              <div class="col-8 mx-auto my-2 formIcon">
+                <input type="email" class="formField" placeholder="Email Address" name="" required="">
               </div>
             </div>
             <div class="form-group row">
-              <div id="pwContainer" class="col-8 mx-auto my-2 formIcon">
-                <input id="pwFieldInput" type="password" placeholder="Password" class="formField" name="password" required>
+              <div class="col-8 mx-auto my-2 formIcon">
+                <input type="password" placeholder="Password" class="formField" name="" required="">
               </div>
             </div>
-            <div class="form-group row text-center">
-              <div class="col-10 mx-auto mt-2 mb-3 text-center">
-                <input id="doneBtn" type="button" value="SIGN UP" class="" onclick="createFirebaseAccount()">
-                </input>
+            <div class="form-group row text-right">
+              <div class="col-8 mx-auto mt-2 mb-3">
+                <button id="doneBtn" type="submit" class="">
+                  Done
+                  <i class="fas fa-arrow-circle-right"></i>
+                </button>
               </div>
             </div>
           </form>
           <div class="row">
             <div class="col-10 text-center mx-auto mt-5">
-              <a id="switchLoginLink" href="#" onclick="switchToLogin()">Already have an account? Click here to login.</a>
+              <a href="file:///C:/Users/Richa/Dropbox/BCIT%20Term%201/COMP%201930/Project%20Repo/GreenGuardenCOMP1930/login.html?#">Already have an account? Click to login.</a>
             </div>
           </div>
         </div>
@@ -145,12 +144,12 @@
 </script>
 <script>
     // The start method will wait until the DOM is loaded.
-    //ui.start('#firebaseui-auth-container', uiConfig);
+    ui.start('#firebaseui-auth-container', uiConfig);
   </script>
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="js/login.js"></script>
-</body>
+  <script src="./Green Guarden_ Login Screen_files/jquery-3.3.1.min.js.download" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="./Green Guarden_ Login Screen_files/popper.min.js.download" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="./Green Guarden_ Login Screen_files/bootstrap.min.js.download" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="file:///C:/Users/Richa/Dropbox/BCIT%20Term%201/COMP%201930/Project%20Repo/GreenGuardenCOMP1930/js/login.js"></script>
 
-</html>
+
+</body></html>

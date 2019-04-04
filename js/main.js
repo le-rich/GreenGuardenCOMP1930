@@ -26,6 +26,14 @@ firebase.auth().onAuthStateChanged(function(user){
 });
 
 
+$("#signOut").click(function(){
+	firebase.auth().signOut().then(function() {
+  		// Sign-out successful.
+  		window.location.href="login.html";
+	}).catch(function(error) {
+  		// An error happened.
+	});
+});
 
 
 //When the create a garden is clicked, fade out and display a garden creator.
