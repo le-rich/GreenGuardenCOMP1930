@@ -40,7 +40,7 @@ $('#createGardenButton').click(function(){
 	$('#createGardenButton').fadeOut("fast",function(){
 		$("#contentRow").css({"visibility": "visible", "display": "flex"});
 	});
-    buildCreateAGarden();
+    //buildCreateAGarden();
 });
 
 
@@ -104,12 +104,10 @@ $('#doneBtn').click(function(){
 
 //If the user wants to add more garden grid
 $('#moreButton').click(function(){
+	console.log("Hiding Garden Row");
     $('#gardenRow').css({"visibility": "hidden", "display": "none"}).fadeOut("fast",function(){
-        //buildCreateAGarden();
         $("#contentRow").fadeIn("fast").css({"visibility": "visible", "display": "flex"});
-        
     });
-    fetchAndDisplayGrid();
     $(this).fadeOut("fast");
 });
 
@@ -295,12 +293,16 @@ function addHours(date, hours){
 
 
 
-function notification{
-    var notificatio1 = document.getElementById("notificationFeed");
-    var dbRef = firebase.database().ref()()
+// function notification{
+//     var notificatio1 = document.getElementById("notificationFeed");
+//     var dbRef = firebase.database().ref()()
     
 
-}
+// }
+
+
+
+
 // function addExp(xpToAdd){
 // 	var user = globalUser;
 // 		var ref = firebase.database().ref("users/" + user.uid + "/xpStats");
