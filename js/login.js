@@ -61,6 +61,7 @@ function loginFirebaseAccount(){
 	loginProcessing = true;
 	firebase.auth().signInWithEmailAndPassword(email, pass).then(function(firebaseUser){
 		firebase.auth().onAuthStateChanged(function(user){
+			//$("#all").toggleClass("animated fadeOutUp faster");
 			window.location.href = "index.html";
 		});
 	}).catch(function(error) {

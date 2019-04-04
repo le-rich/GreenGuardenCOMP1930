@@ -31,16 +31,16 @@
 </head>
 
 <body onload="loadDone()">
-
-  <script>
-    // Initialize the FirebaseUI Widget using Firebase.
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
-  </script>
-
-    <!-- The surrounding HTML is left untouched by FirebaseUI.
-     Your app may use that space for branding, controls and other customizations.-->
-     <div class="background"></div>
-     <div id="overlayLoad" class="container-fluid">
+  <div id="doneContainer" class="container-fluid">
+    <div id="doneRow" class="row text-center">
+      <div class="col-10 mx-auto">
+        Welcome Back!
+      </div>
+    </div>
+  </div>
+  <div id="all">
+    <div class="background"></div>
+    <div id="overlayLoad" class="container-fluid">
       <div class="row">
         <div id="overlayInner" class=" col-3 text-center mx-auto animated infinite pulse faster">
           Loading...
@@ -69,8 +69,8 @@
               <div id="userField" class="col-8 mx-auto my-2 formIcon">
                 <input id="userFieldInput" type="text" class="formField" placeholder="Username" name="username" required>
               </div>
-             </div>
-             <div class="form-group row">
+            </div>
+            <div class="form-group row">
               <div id="emailContainer" class="col-8 mx-auto my-2 formIcon">
                 <input id="emailFieldInput" type="email" class="formField" placeholder="Email Address" name="email" required>
               </div>
@@ -83,74 +83,25 @@
             <div class="form-group row text-center">
               <div class="col-10 mx-auto mt-2 mb-3 text-center">
                 <input id="doneBtn" type="button" value="SIGN UP" class="" onclick="createFirebaseAccount()">
-                </input>
-              </div>
+              </input>
             </div>
-          </form>
-          <div class="row">
-            <div class="col-10 text-center mx-auto mt-5">
-              <a id="switchLoginLink" href="#" onclick="switchToLogin()">Already have an account? Click here to login.</a>
-            </div>
+          </div>
+        </form>
+        <div class="row">
+          <div class="col-10 text-center mx-auto mt-5">
+            <a id="switchLoginLink" href="#" onclick="switchToLogin()">Already have an account? Click here to login.</a>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+</div>
 
-
-<!--        <div class="row">
-         <div class="col-4 mx-auto text-center">
-           <div id="firebaseui-auth-container"></div>
-            <div id="loader">Loading...</div>
-         </div>
-       </div> 
-     </div>-->
-     
-
-
-     <script>
-      var uiConfig = {
-        callbacks: {
-          signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-      // User successfully signed in.
-      // Return type determines whether we continue the redirect automatically
-      // or whether we leave that to developer to handle.
-      return true;
-    },
-    uiShown: function() {
-      // The widget is rendered.
-      // Hide the loader.
-      document.getElementById('loader').style.display = 'none';
-    }
-  },
-    // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-    signInFlow: 'popup',
-    signInSuccessUrl: 'name.html',
-    signInOptions: [
-    // Leave the lines as is for the providers you want to offer your users.
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-    //firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-    //firebase.auth.GithubAuthProvider.PROVIDER_ID,
-    firebase.auth.EmailAuthProvider.PROVIDER_ID,
-    //firebase.auth.PhoneAuthProvider.PROVIDER_ID
-    ],
-  // Terms of service url.
-  tosUrl: 'tos.html',
-  // Privacy policy url.
-  privacyPolicyUrl: 'privacy.html'
-};
-
-
-</script>
-<script>
-    // The start method will wait until the DOM is loaded.
-    //ui.start('#firebaseui-auth-container', uiConfig);
-  </script>
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="js/login.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/login.js"></script>
 </body>
 
 </html>
