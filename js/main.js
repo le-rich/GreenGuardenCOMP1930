@@ -98,11 +98,10 @@ $('#moreButton').click(function(){
         $("#contentRow").fadeIn("fast").css({"visibility": "visible", "display": "flex"});
         
     });
-<<<<<<< HEAD
+
     fetchAndDisplayGrid();
-=======
     $(this).fadeOut("fast");
->>>>>>> 02bed20f5741a52bb1f918f3780501fb7d5f397d
+
 });
 
 var existingGrid = $(".gardenPlanter");
@@ -186,6 +185,7 @@ function off() {
 $(document).ready(function() {
 	ShowList("Plants");
 });
+
 
 function ShowList(category) {
 	var dbRef = firebase.database().ref(category);
@@ -286,12 +286,14 @@ function addHours(date, hours){
 
 
 
-function notification{
-    var notificatio1 = document.getElementById("notificationFeed");
-    var dbRef = firebase.database().ref()()
-    
+//function notification (plantName) {
+    //var notifContent1 = document.getElementById("notif1")
+    //var dbPlantRef = //firebase.database().ref().ref("plants/" + plantName + "/nextWaterDate" nextWaterDate) +;
+    //notifContent1 = 
 
-}
+//}
+
+
 // function addExp(xpToAdd){
 // 	var user = globalUser;
 // 		var ref = firebase.database().ref("users/" + user.uid + "/xpStats");
