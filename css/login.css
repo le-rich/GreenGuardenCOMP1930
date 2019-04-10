@@ -39,7 +39,6 @@ input:focus{
 	top: 0;
 	left: 0;
 	background-image: url("img/mainsplash.jpg");
-	background-repeat: no-repeat;
 	background-size: cover;
 }
 

@@ -159,8 +159,20 @@ function fetchAndDisplayGrid(){
 				$(".gardenPlanter").each(function(){
 					if (!$(this).hasClass("dbPosActive")){
 						$(this).css({"visiblity": "hidden", "opacity": "0", "user-select": "none"});
+						$(this.firstChild).css({"display": "none", "visiblity": "hidden"});
+						$(this.firstChild).attr("disabled", "disabled");
+					
 					}else{
 						$(this).css({"visiblity": "visible", "opacity": "1", "user-select": "auto"});
+						if ($(this).hasClass("hasPlant")){
+							$(this.firstChild).attr("disabled", "disabled");
+							$(this.firstChild).css({"display": "none", "visiblity": "hidden"});
+						}else{
+							$(this.firstChild).removeAttr("disabled");
+							$(this.firstChild).css({"display": "block", "visiblity": "visible"});
+						}
+						
+						
 					}
 				});
 			}, function(error){
@@ -175,10 +187,12 @@ function fetchAndDisplayGrid(){
 			$(".hasPlant").each(function(){
 				//Hides the add plant button on given garden grid.
 				var plantName = $(this).data("plant");
-				$(this).css({"backgroundImage" : "url('css/img/"+plantName+".jpg')", "backgroundSize" : "cover"});
+				$(this).css({"backgroundImage" : "url('css/img/"+plantName+".png')", "backgroundSize" : "cover"});
 				$(this.firstChild).css({"display": "none", "visiblity": "hidden"});
 			});
 		});
+
+
 		$("#gardenRow").css({"visibility": "visible", "display": "flex"});
 	});
 }
@@ -262,7 +276,7 @@ function addPlant(plantName) {
     var overlay = document.getElementById("plantOverlay");
     var box = overlay.dataset.box;
     var boxDiv = document.getElementsByClassName("gardenPlanter");
-    boxDiv[box-1].style.backgroundImage = ("url('css/img/"+plantName+".jpg')");
+    boxDiv[box-1].style.backgroundImage = ("url('css/img/"+plantName+".png')");
     boxDiv[box-1].style.backgroundSize = "cover";
     var selectedBox = boxDiv[box-1];
 	$(selectedBox.firstChild).css({"display": "none", "visiblity": "hidden"});
@@ -299,7 +313,7 @@ function addHours(date, hours){
 
 
 
-<<<<<<< HEAD
+
 //function notification (plantName) {
     //var notifContent1 = document.getElementById("notif1")
     //var dbPlantRef = //firebase.database().ref().ref("plants/" + plantName + "/nextWaterDate" nextWaterDate) +;
@@ -308,7 +322,6 @@ function addHours(date, hours){
 //}
 
 
-=======
 // function notification{
 //     var notificatio1 = document.getElementById("notificationFeed");
 //     var dbRef = firebase.database().ref()()
@@ -319,7 +332,7 @@ function addHours(date, hours){
 
 
 
->>>>>>> 24a480e4569272655899734d81de61506f68e7b1
+
 // function addExp(xpToAdd){
 // 	var user = globalUser;
 // 		var ref = firebase.database().ref("users/" + user.uid + "/xpStats");
