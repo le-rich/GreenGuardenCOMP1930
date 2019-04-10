@@ -19,7 +19,10 @@ firebase.auth().onAuthStateChanged(function(user){
     		$("#createGardenButton").css({"visibility": "hidden", "display": "none"});
     		console.log("Fetched from Startup");
     		fetchAndDisplayGrid();	
-    	}
+    	} else {
+            //$("#moreButton").css({"visibility": "hidden", "display": "none"});
+            
+        }
     });
     initUserStats();
 });
