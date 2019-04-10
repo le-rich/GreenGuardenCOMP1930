@@ -25,10 +25,11 @@ html, body{
 }
 
 #moreButton{
+    border-radius: 10px;
     background-color: #4CAF50;
+    border: 1px solid black;
     pointer-events: auto;
-    color: white;
-    background-color: green;
+    
 }
 
 #plantInfoContainer{
