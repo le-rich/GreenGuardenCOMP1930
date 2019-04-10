@@ -28,6 +28,7 @@ firebase.auth().onAuthStateChanged(function(user){
             $("#noGarden").append(noGardenMsg);
             $("#noGardenMsg").text("You don't have a Garden. Create a new Garden!");
         }
+    	}
     });
     initUserStats();
 });
@@ -115,12 +116,7 @@ $('#moreButton').click(function(){
     $('#gardenRow').css({"visibility": "hidden", "display": "none"}).fadeOut("fast",function(){
         $("#contentRow").fadeIn("fast").css({"visibility": "visible", "display": "flex"});
     });
-
-    fetchAndDisplayGrid();
     $(this).fadeOut("fast");
-
-    $(this).fadeOut("fast");
-
 });
 
 var existingGrid = $(".gardenPlanter");
@@ -190,7 +186,7 @@ function fetchAndDisplayGrid(){
 			$(".hasPlant").each(function(){
 				//Hides the add plant button on given garden grid.
 				var plantName = $(this).data("plant");
-				$(this).css({"backgroundImage" : "url('css/img/"+plantName+".png')", "backgroundSize" : "cover"});
+				$(this).css({"backgroundImage" : "url('css/img/"+plantName+".jpg')", "backgroundSize" : "cover"});
 				$(this.firstChild).css({"display": "none", "visiblity": "hidden"});
 
 			});
@@ -241,7 +237,6 @@ $(document).ready(function() {
 	buildCreateAGarden();
 	
 });
-
 
 function ShowList(category) {
 	var dbRef = firebase.database().ref(category);
@@ -303,7 +298,7 @@ function addPlant(plantName) {
     var overlay = document.getElementById("plantOverlay");
     var box = overlay.dataset.box;
     var boxDiv = document.getElementsByClassName("gardenPlanter");
-    boxDiv[box-1].style.backgroundImage = ("url('css/img/"+plantName+".png')");
+    boxDiv[box-1].style.backgroundImage = ("url('css/img/"+plantName+".jpg')");
     boxDiv[box-1].style.backgroundSize = "cover";
     var selectedBox = boxDiv[box-1];
 	$(selectedBox.firstChild).css({"display": "none", "visiblity": "hidden"});
@@ -340,22 +335,12 @@ function addHours(date, hours){
 
 
 
-
-//function notification (plantName) {
-    //var notifContent1 = document.getElementById("notif1")
-    //var dbPlantRef = //firebase.database().ref().ref("plants/" + plantName + "/nextWaterDate" nextWaterDate) +;
-    //notifContent1 = 
-
-//}
-
-
 // function notification{
 //     var notificatio1 = document.getElementById("notificationFeed");
 //     var dbRef = firebase.database().ref()()
     
 
 // }
-
 
 
 
