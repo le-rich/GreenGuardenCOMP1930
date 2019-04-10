@@ -15,21 +15,36 @@ html, body{
   height: 100%;
 }
 
+.hasPlant{
+  transition: all 0.5s cubic-bezier(.11,.81,.04,1);
+}
+
+.hasPlant:hover{
+  cursor: pointer;
+  transform: scale(1.1));
+}
+
 #moreButton{
     border-radius: 50px;
     background-color: #4CAF50;
     pointer-events: auto;
     color: white;
     background-color: black;
-    background: linear-gradient(to bottom, #45B649, #DCE35B);
+    background: linear-gradient(to bottom, #45B649, #DCE35B);   
+}
+
+#plantInfoContainer{
+  height: 80%;
 }
 
 #pickBtn{
   pointer-events: auto;
+  outline: none;
 }
 
 #waterBtn{
   pointer-events: auto;
+  outline: none;
 }
 
 #xpFull{
@@ -147,6 +162,22 @@ html, body{
     visibility: hidden;
     position: fixed;
     left: 2%;
+    top: 25%;
+    z-index: 10000;
+    border-radius: 25px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center
+}
+
+#inspectPlantOverlay {
+    height: 400px;
+    width: 300px;
+    background-color: lightgrey;
+    display: none;
+    visibility: hidden;
+    position: fixed;
+    right: 2%;
     top: 25%;
     z-index: 10000;
     border-radius: 25px;
