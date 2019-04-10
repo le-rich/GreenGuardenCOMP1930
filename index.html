@@ -4,7 +4,8 @@
   <title>Green Guarden - Home</title>
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
-
+  <!-- Animate.css -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- Firebase -->
@@ -31,6 +32,27 @@
       </div>
     </div>
       <button id="close" type="button" onclick="off()">X</button>
+  </div>
+  <div id="inspectPlantOverlay" class="container-fluid">
+    <div class="row">
+      <div class="col-12 text-right">
+        <button id="close" type="button" onclick="hideInspectOverlay()">X</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">Picture</div>
+      <div class="col-8 text-center">Title</div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-5">Water Level:</div>
+      <div class="col-7">||||||||</div>
+    </div>
+    <div class="row">
+      <div class="col-5">Pick Date:</div>
+      <div class="col-7">|||||||</div>
+    </div>
+      
   </div>
   <div id="uiContainer" class="container-fluid">
     <div class="row mt-3">
@@ -75,16 +97,13 @@
           <div class="row">
             <div id="title" class="col-12">Garden Title</div>
             <div class="col-12">
-              <button id="moreButton">Edit</button>
+              <button id="moreButton">Edit Garden Layout</button>
             </div>
           </div>
         </div>
       </div>
         
-      <div class="col-3 text-center">
-        <div id="notifContainer" class="headerContainer">
-          <img src="css/img/notifBell.png" width="45px" height="auto">
-        </div>          
+      <div class="col-3 text-center">       
       </div>
     </div>  
     <div id="uiSpacerRow" class="row">
