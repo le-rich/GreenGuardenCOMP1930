@@ -19,8 +19,14 @@ firebase.auth().onAuthStateChanged(function(user){
     		$("#createGardenButton").css({"visibility": "hidden", "display": "none"});
     		fetchAndDisplayGrid();	
     	} else {
-            //$("#moreButton").css({"visibility": "hidden", "display": "none"});
-            
+            $("#moreButton").css({"visibility": "hidden", "display": "none"});
+            $("#waterBtn").css({"visibility": "hidden", "display": "none"});
+            $("#pickBtn").css({"visibility": "hidden", "display": "none"});
+            var noGarden = $(document.createElement("div")).attr("id", "noGarden");
+            $("#pageContainer").append(noGarden);
+            var noGardenMsg = $(document.createElement("h3")).attr("id", "noGardenMsg");
+            $("#noGarden").append(noGardenMsg);
+            $("#noGardenMsg").text("You don't have a Garden. Create a new Garden!");
         }
     });
     initUserStats();
@@ -42,6 +48,7 @@ $('#createGardenButton').click(function(){
 	$('#createGardenButton').fadeOut("fast",function(){
 		$("#contentRow").css({"visibility": "visible", "display": "flex"});
 	});
+    $("#noGarden").css({"visibility": "hidden", "display": "none"});
     //buildCreateAGarden();
 });
 
