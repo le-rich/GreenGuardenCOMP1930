@@ -154,8 +154,20 @@ function fetchAndDisplayGrid(){
 				$(".gardenPlanter").each(function(){
 					if (!$(this).hasClass("dbPosActive")){
 						$(this).css({"visiblity": "hidden", "opacity": "0", "user-select": "none"});
+						$(this.firstChild).css({"display": "none", "visiblity": "hidden"});
+						$(this.firstChild).attr("disabled", "disabled");
+					
 					}else{
 						$(this).css({"visiblity": "visible", "opacity": "1", "user-select": "auto"});
+						if ($(this).hasClass("hasPlant")){
+							$(this.firstChild).attr("disabled", "disabled");
+							$(this.firstChild).css({"display": "none", "visiblity": "hidden"});
+						}else{
+							$(this.firstChild).removeAttr("disabled");
+							$(this.firstChild).css({"display": "block", "visiblity": "visible"});
+						}
+						
+						
 					}
 				});
 			}, function(error){
@@ -174,6 +186,8 @@ function fetchAndDisplayGrid(){
 				$(this.firstChild).css({"display": "none", "visiblity": "hidden"});
 			});
 		});
+
+
 		$("#gardenRow").css({"visibility": "visible", "display": "flex"});
 	});
 }
