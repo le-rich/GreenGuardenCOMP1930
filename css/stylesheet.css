@@ -25,12 +25,10 @@ html, body{
 }
 
 #moreButton{
-    border-radius: 50px;
     background-color: #4CAF50;
     pointer-events: auto;
     color: white;
-    background-color: black;
-    background: linear-gradient(to bottom, #45B649, #DCE35B);   
+    background-color: green;
 }
 
 #plantInfoContainer{
