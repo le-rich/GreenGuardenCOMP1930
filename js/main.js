@@ -23,19 +23,18 @@ firebase.auth().onAuthStateChanged(function(user){
 
     //Get if the user has already created a garden, if so, load it.
     ref = firebase.database().ref("users/" + user.uid +"/gardenCreated");
-    ref.on("value", function(snap){
+    ref.once("value", function(snap){
     	if (snap.val() == true){
     		fetchAndDisplayGrid();
     		fetchAndDisplayGrid();
-    		fetchAndDisplayGrid();
     	} else {
-    		console.log("No garden detected, building noGarden");
         noGarden();
       }
 
         initUserStats();
     });
 });
+
 
 
 $("#signOut").click(function(){
@@ -60,12 +59,32 @@ $('#createGardenButton').click(function(){
 
 function fetchDisplayInspectorInfo(index, name){
 	var pickDateRef = firebase.database().ref("users/" + globalUser.uid + "/plants/" + index);
-	pickDateRef.on("value", function(snap){
+	pickDateRef.once("value", function(snap){
 		$("#inspectPickDate").text(snap.val().dateToPick);
+		$("#inspectWaterDate").text(snap.val().dateToWater);
 	});
 	$("#inspectTitle").text(name);
-	
+	$("#inspectPlantOverlay").attr("data-index", index);
 }
+
+$("#pickBtn").click(function(){
+	var user = globalUser;
+	hideInspectOverlay();
+	var index = $("#inspectPlantOverlay").attr("data-index");
+	var planters = $(".gardenPlanter");
+	$(planters[index]).css({"background-image": "none"}).removeClass("hasPlant");
+	$(planters[index]).children(".addPlant").css({"display": "block", "visibility":"visible"});
+	var plantRef = firebase.database().ref("Plants/" + $(planters[index]).attr("data-plant"));
+	addExp(1200);
+	var ref = firebase.database().ref("users/" + user.uid +"/plants/" + index);
+	ref.remove();
+	$(planters[index]).removeAttr("data-plant").removeAttr("data-ind");
+});
+
+$("#waterBtn").click(function(){
+	addExp(50);
+});
+
 
 
 //Creates a 5 x 5 Garden Grid
@@ -170,7 +189,7 @@ function fetchAndDisplayGrid(){
 			$(this).removeClass("inspecting");
 		});
 
-		dbRef.on("value",function(snap){
+		dbRef.once("value",function(snap){
 				snap.forEach(function(snap){
 					$(existingGrid[snap.val()[0] +  (5 * snap.val()[1])]).toggleClass("dbPosActive");
 				});
@@ -200,26 +219,29 @@ function fetchAndDisplayGrid(){
 			snap.forEach(function(snap){
 				$(existingGrid[snap.val()["gridIndex"]]).addClass("hasPlant").attr({"data-plant": snap.val()["plant"], "data-ind": snap.val()["gridIndex"]});
 				index++;
-			});
+			});	
+
 
 			$(".hasPlant").each(function(){
 				//Hides the add plant button on given garden grid.
-				var plantName = $(this).data("plant");
-				$(this).css({"backgroundImage" : "url('css/img/"+plantName+".png')", "backgroundSize" : "cover"});
+				var plantName = $(this).attr("data-plant");
+				$(this).css({"background-image" : "url('css/img/"+plantName+".png')", "backgroundSize" : "cover"});
 				$(this.firstChild).css({"display": "none", "visiblity": "hidden"});
 			});
 
 			$(".hasPlant").click(function(){
 				if ($(this).hasClass("inspecting")){
+					console.log("Here again");
 					hideInspectOverlay();
-				}else{
+				}else if ($(this).hasClass("hasPlant")){
+					$(this).addClass("inspecting");
 					var plantName = $(this).attr("data-plant");
 					var plantInd = $(this).attr("data-ind");
 					displayInspectOverlay();
 					fetchDisplayInspectorInfo(plantInd, plantName);
-					$(this).addClass("inspecting");
+
 				}
-			});
+			});	
 		});
 
 
@@ -246,9 +268,9 @@ function off() {
 }
 
 function displayInspectOverlay(){
+	console.log("Show");
 	document.getElementById("inspectPlantOverlay").style.display = "block";
 	document.getElementById("inspectPlantOverlay").style.visibility = "visible";
-	// $("#inspectPlantOverlay").removeClass("fadeOutRight");
 	// $("#inspectPlantOverlay").addClass("animated fadeInRight faster");
 	$("#inspectPlantOverlay").attr("class", "container-fluid animated faster fadeInRight");
 	$(".inspecting").each(function(){
@@ -257,6 +279,7 @@ function displayInspectOverlay(){
 }
 
 function hideInspectOverlay(){
+	console.log("Hide");
 	$(".inspecting").each(function(){
 		$(this).removeClass("inspecting");
 	});
@@ -343,7 +366,7 @@ function addPlant(plantName) {
 
 
 	var dbPlantRef = firebase.database().ref("Plants/" + plantName);
-	dbPlantRef.on("value", function(snap){
+	dbPlantRef.once("value", function(snap){
 		var waterInHours = snap.val()["timeToWater"];
 		var pickInHours = snap.val()["timeToPick"];
 		var now = new Date();
@@ -363,37 +386,51 @@ function addHours(date, hours){
 }
 
 function addExp(xpToAdd){
+	var newXP = 0;
+	var remainingExp = 0;
+	var leveled = false;
 	var user = globalUser;
 		var ref = firebase.database().ref("users/" + user.uid + "/xpStats");
 		ref.on("value", function(snap) {
-			snap.val().exp += xpToAdd;
-			if (snap.val().exp >=  snap.val().expForLevel){
-				var remainingExp = snap.val().exp - snap.val().expForLevel;
-				handleLevelUp(remainingExp);
+			newXP = parseInt(snap.val().exp) + xpToAdd;
+			if (newXP >=  snap.val().expForLevel){
+				remainingExp =  snap.val().expForLevel - snap.val().exp;
+				handleLevelUp(remainingExp, snap.val().expForLevel, snap.val().level);
+				leveled = true;
 			}
 		});
+			if (leveled == false){
+				firebase.database().ref("users/" + user.uid + "/xpStats").update({
+					exp: newXP
+				});
+			}
 }
 
 function handleLevelUp(remainingExp, expForLevel, currLevel){
+	var expRemain = remainingExp;
+	if (expRemain < 0){
+		expRemain = 0;
+	}
 	var user = globalUser;
 	var ref = firebase.database().ref("users/" + user.uid + "/xpStats");
 	var factor = remainingExp / expForLevel;
 	if (factor > 1){
 		var resultLevel = (currLevel + Math.floor(factor));
+		var remainder = Math.abs(expRemain - (factor * expForLevel));
 		ref.update({
 			level: resultLevel,
-			exp: remainingExp
+			exp: remainder
 		}).then(function(){
 			UpdateXPBar();
 		});
-		var remainder = remainingExp - (factor * expForLevel);
+		 
 
-		handleLevelUp(remainder);
+		// handleLevelUp(remainder, expForLevel, resultLevel);
 	}else{
 		var nextLevel = currLevel + 1;
 		firebase.database().ref("users/"+user.uid +"/xpStats").update({
 			level: nextLevel,
-			exp: remainingExp
+			exp: expRemain
 		}).then(function(){
 			UpdateXPBar();
 		});

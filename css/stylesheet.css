@@ -74,6 +74,12 @@ body{
   margin-top: 22%;
 }
 
+#availPlants{
+  font-size: 18pt;
+}
+
+
+
 
 #moreButton{
   color: grey;
@@ -109,13 +115,14 @@ body{
 #xpFull{
   width: 100%;
   height: 20px;
-  background: grey;
+  border: 2px solid white;
 }
 
 #xpActual{
   width: 1%;
   height: 100%;
-  background: black;
+  background: white;
+  transition: all 0.5s cubic-bezier(.11,.81,.04,1);
 }
 
 #uiContainer{
@@ -222,7 +229,7 @@ body{
 
 #buttonRow{
   position: relative;
-  margin-top: 95% !important;
+  margin-top: 10% !important;
 }
 
 #plantOverlay {
@@ -239,15 +246,19 @@ body{
     justify-content: center
 }
 
+#inspectTitle{
+  font-size: 20pt;
+}
+
 #inspectPlantOverlay {
-    height: 70%;
+    height: 40%;
     width: 500px;
     background-color: rgb(109, 179, 119, 0.4);
     display: none;
     visibility: hidden;
     position: fixed;
     right: 0%;
-    top: 15%;
+    top: 30%;
     z-index: 10000;
     display: flex;
     justify-content: center

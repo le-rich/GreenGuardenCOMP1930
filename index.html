@@ -35,7 +35,7 @@
   </div>      
   <div id="plantOverlay" class="container-fluid">
     <div class="row">
-      <div class="col-8 mx-auto text-center">
+      <div id="availPlants" class="col-8 mx-auto text-center">
         Available Plants
       </div>
     </div>
@@ -51,13 +51,13 @@
       <div id="inspectTitle" class="col-10 mx-auto text-center"></div>
     </div>
 
-    <div class="row mt-5 mx-auto">
-      <div class="col-5">Water Level:</div>
-      <div class="col-7">||||||||</div>
+    <div class="row mt-5 mx-auto text-center">
+      <div class="col-4 ml-auto">Water On:</div>
+      <div id="inspectWaterDate" class="col-7 mr-auto text-left">||||||||</div>
     </div>
-    <div class="row mx-auto">
-      <div class="col-3">Pick On:</div>
-      <div id="inspectPickDate" class="col-7">|||||||</div>
+    <div class="row mx-auto text-center">
+      <div class="col-4 ml-auto">Pick On:</div>
+      <div id="inspectPickDate" class="col-7 mr-auto text-left">|||||||</div>
     </div>
     <div id="buttonRow" class="row text-center mx-auto mt-5">
       <div class="col-4 mx-2 ml-auto">
@@ -136,7 +136,7 @@
     <div id="gardenRow" class="row align-middle">
       <div id="gardenContainer" class="col-10 mr-auto ml-auto">
         <div class="row text-center">
-          <div class="col-2 gardenPlanter rndTopLeft ml-auto">
+          <div class="col-2 gardenPlanter ml-auto">
               <div class="iconContainer">
                 <div class = "waterNotification" id="water1"></div>
                 <div class = "pickNotification" id="pick1"></div>
@@ -167,7 +167,7 @@
               <img src = "css/img/plus.png" class="addPlant" onclick="on(4)" >
           
             </div>   
-          <div class="col-2 gardenPlanter rndTopRight mr-auto">
+          <div class="col-2 gardenPlanter mr-auto">
               <div class="iconContainer">
                 <div class = "waterNotification" id="water1"></div>
                 <div class = "pickNotification" id="pick1"></div>
@@ -291,7 +291,7 @@
             </div>
         </div>
         <div class="row text-center">
-          <div class="col-2 gardenPlanter rndBtmLeft ml-auto">
+          <div class="col-2 gardenPlanter ml-auto">
                <div class="iconContainer">
                 <div class = "waterNotification" id="water1"></div>
                 <div class = "pickNotification" id="pick1"></div>
@@ -323,7 +323,7 @@
               <img src = "css/img/plus.png" class="addPlant" onclick="on(24)" >
           
             </div>
-          <div class="col-2 gardenPlanter rndBtmRight mr-auto">
+          <div class="col-2 gardenPlanter mr-auto">
                <div class="iconContainer">
                 <div class = "waterNotification" id="water1"></div>
                 <div class = "pickNotification" id="pick1"></div>
