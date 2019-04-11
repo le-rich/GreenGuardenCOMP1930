@@ -3,7 +3,7 @@
 <head>
   <title>Green Guarden - Home</title>
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans|EB+Garamond|Montserrat" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans|EB+Garamond|Montserrat|Permanent+Marker" rel="stylesheet">
   <!-- Animate.css -->
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
   <!-- Bootstrap -->
@@ -25,7 +25,14 @@
   <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
 </head>
 
-<body>      
+<body>
+  <div id="overlayLoad" class="container-fluid">
+      <div class="row">
+        <div id="overlayInner" class=" col-3 text-center mx-auto animated infinite pulse faster">
+          Loading...
+        </div>
+      </div>
+  </div>      
   <div id="plantOverlay" class="container-fluid">
     <div class="row">
       <div class="col-8 mx-auto text-center">
@@ -54,7 +61,7 @@
     </div>
     <div id="buttonRow" class="row text-center mx-auto mt-5">
       <div class="col-4 mx-2 ml-auto">
-        <button id="pickBtn" type="button" class="btn btn-success" disabled>Pick</button>
+        <button id="pickBtn" type="button" class="btn btn-success">Pick</button>
       </div>
       <div class="col-4 mx-2 mr-auto">
         <button id="waterBtn" type="button" class="btn btn-primary">Water</button>
@@ -204,8 +211,7 @@
                 <div class = "pickNotification" id="pick1"></div>
               </div>
               <img src = "css/img/plus.png" class="addPlant" onclick="on(10)" >
-          
-            </div>
+          </div>
         </div>
         <div class="row text-center">
           <div class="col-2 gardenPlanter ml-auto">
@@ -329,6 +335,9 @@
       </div>
     </div>
     <div id="contentRow" class="row align-middle">
+      <div id="cagPrompt" class="col-8 mx-auto text-center pb-5">
+        Pick the Layout of Your Garden
+      </div>
       <div id="createGardenContainer" class="col-12 mr-auto ml-auto">
         <div id="btn-container" class="mx-auto my-auto">
           <!-- Create a Grid is added here  -->

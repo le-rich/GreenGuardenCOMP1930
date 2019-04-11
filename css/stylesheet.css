@@ -4,13 +4,34 @@ html, body{
   margin: 0;
   padding: 0;
   font-family: 'Montserrat', sans-serif;
-  color: black;
 }
 
 body{
-  background-color: #f2f6fc;
+  background-image: none;
+  background: linear-gradient(307deg, #78BE97, #a0d969);
+  animation: Gradient 120s ease infinite;
+  -webkit-animation: Gradient 120s ease infinite;
+  -moz-animation: Gradient 120s ease infinite;
+  overflow-y: hidden;
+  transition: all 0.5s cubic-bezier(.11,.81,.04,1);
+  color: white;
 }
 
+@-webkit-keyframes Gradient {
+    0%{background-position:0% 9%}
+    50%{background-position:100% 92%}
+    100%{background-position:0% 9%}
+}
+@-moz-keyframes Gradient {
+    0%{background-position:0% 9%}
+    50%{background-position:100% 92%}
+    100%{background-position:0% 9%}
+}
+@keyframes Gradient { 
+    0%{background-position:0% 9%}
+    50%{background-position:100% 92%}
+    100%{background-position:0% 9%}
+}
 
 #header{
   text-align: center;
@@ -36,11 +57,39 @@ body{
   z-index: 1000000;
 }
 
+#overlayLoad{
+  background-color: #161616;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20000000;
+}
+
+#overlayInner{
+  color: white;
+  font-family: 'Permanent Marker';
+  font-size: 36pt;
+  margin-top: 22%;
+}
+
+
 #moreButton{
-  border-radius: 10px;
-  background-color: #4CAF50;
-  border: 1px solid black;
+  color: grey;
   pointer-events: auto;
+  transition: all 0.5s;
+  background: transparent;
+  border: none;
+}
+
+#cagPrompt{
+  font-size: 28pt;
+  font-weight: bold;
+}
+
+#moreButton:hover{ 
+  color: white;
 }
 
 #plantInfoContainer{
@@ -79,11 +128,11 @@ body{
 
 #contentRow{
   min-height: 60%;
-  background-color: grey;
   visibility: hidden;
   display: none;
   justify-content: center;
   align-items: center;
+  margin-top: 7%;
 }
 
 #contentContainer{
@@ -100,12 +149,14 @@ body{
 }
 
 #uiSpacerRow{
-  height: 77%;
+  height: 75%;
 }
 
 #expContainer{
   width: 100%;
   pointer-events: auto;
+  font-weight: bold;
+  letter-spacing: 0.05em;
 }
 
 #notifContainer{
@@ -129,10 +180,9 @@ body{
 }
 
 .gardenPlanter{
-  background-color: magenta;
   min-height: 100px;
   max-width: 100px;
-  border: 2px solid black;
+  border: 2px solid #59473C;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -149,7 +199,13 @@ body{
     width: 80%;
     font-weight: bold;
     position: relative;
-    bottom: 8%;
+    transition: all 0.25s cubic-bezier(.11,.81,.04,1);
+    -webkit-filter: invert(100%);
+}
+
+.addPlant:hover{
+  transform: scale(1.2);
+  cursor: pointer;
 }
 
 .plant {
@@ -207,11 +263,17 @@ body{
 }
 
 .selected{
-  background-color: red !important;
+  background-color: green !important;
+  border: none !important;
+}
+
+.gardenBtn{
+  width: 100px;
+  height: 100px;
+  margin: 1px;
 }
 
 .dbPosActive{
-  background-color: blue;
   margin: 1px;
 }
 
@@ -228,13 +290,15 @@ h1{
 
 
 .btn-group button {
-  background-color: #4CAF50; /* Green background */
-  border: 1px solid green; /* Green border */
+  border: 2px dashed green; /* Green border */
+  background: transparent;
+  outline: none;
   color: white; /* White text */
   padding: 10px 24px; /* Some padding */
   cursor: pointer; /* Pointer/hand icon */
   float: left; /* Float the buttons side by side */
-
+  margin: 1px;
+  transition: all 0.2s;
 }
 
 /* Clear floats (clearfix hack) */
@@ -246,13 +310,10 @@ h1{
   align-content: center;
 }
 
-.btn-group button:not(:last-child) {
-  border-right: none; /* Prevent double borders */
-}
 
 /* Add a background color on hover */
 .btn-group button:hover {
-  background-color: #3e8e41;
+ /* background-color: #3e8e41;*/
 }
 
 #btn-container{
@@ -272,7 +333,6 @@ h1{
   font-size: 36pt;
   font-weight: 900;
   letter-spacing: .1em;
-  font-family: 'EB Garamond', serif;
 }
 
 .WeatherDiv{
@@ -334,6 +394,8 @@ h1{
 }
 
 .pickNotification {
+    visibility: hidden;
+    display: none;
     height: 20px;
     width: 20px;
     background-image: url(img/sun.jpg);
@@ -349,6 +411,8 @@ h1{
 
 
 .waterNotification{
+    visibility: hidden;
+    display: none;
     background-image: url(img/Water.png);
     background-size: cover;
     width: 20px;
@@ -364,7 +428,6 @@ h1{
 
 .iconContainer{
     width: 140%;
-    
     display: flex;
     position: relative;
     bottom: 8.5%;

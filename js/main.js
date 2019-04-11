@@ -1,5 +1,14 @@
 var globalUser;
 
+function loadDone(){
+	myVar = setTimeout(showPage, 1000);
+}
+
+function showPage(){
+	$("#overlayLoad").slideUp("fast");
+	$("#allContainer").css({"display": "block", "visibility": "visible"});
+}
+
 //Change Title Bar to User Name's Garden
 firebase.auth().onAuthStateChanged(function(user){
 	globalUser = user;
@@ -17,9 +26,12 @@ firebase.auth().onAuthStateChanged(function(user){
     ref.on("value", function(snap){
     	if (snap.val() == true){
     		fetchAndDisplayGrid();
+    		fetchAndDisplayGrid();
+    		fetchAndDisplayGrid();
     	} else {
-            noGarden();
-        }
+    		console.log("No garden detected, building noGarden");
+        noGarden();
+      }
 
         initUserStats();
     });
@@ -38,6 +50,7 @@ $("#signOut").click(function(){
 
 //When the create a garden is clicked, fade out and display a garden creator.
 $('#createGardenButton').click(function(){
+	$('body').css("background-image", "url('cssimg/gridme.png') !important");
 	$('#createGardenButton').fadeOut("fast",function(){
 		$("#contentRow").css({"visibility": "visible", "display": "flex"});
 	});
@@ -63,7 +76,7 @@ function buildCreateAGarden(){
 		$("#btn-container").append(newRow);
 		var appendedRow = $("#row" + (y + 1));
 		for (var x = 0; x < 5; x++){
-			var newButton = "<button" + " id=\"" + x + y + "\"" + "class=\"gardenBtn\" data-pos=\"[" + x + "," + y +"]\">1</button>"
+			var newButton = "<button" + " id=\"" + x + y + "\"" + "class=\"gardenBtn\" data-pos=\"[" + x + "," + y +"]\"></button>"
 			$("#row" + (y + 1)).append(newButton);
 		}
 	}
@@ -107,12 +120,17 @@ function initUserStats(){
 $('#doneBtn').click(function(){
 	buildGrid();
 	fetchAndDisplayGrid();
+	fetchAndDisplayGrid();
+	$('body').css({"background-image": "none", "background" : "linear-gradient(307deg, #A7DDA7, #a0d969)", "color": "white"});
 	$("#moreButton").fadeIn("fast");
+	$("#contentRow").fadeOut();
+	$("#expContainer").css({"visibility": "visible", "display": "block"});
 });
 
 
 //If the user wants to add more garden grid
 $('#moreButton').click(function(){
+		$('body').css({"background-image": "url('css/img/gridme.png')", "color": "black"});
     $('#gardenRow').css({"visibility": "hidden", "display": "none"}).fadeOut("fast",function(){
         $("#contentRow").fadeIn("fast").css({"visibility": "visible", "display": "flex"});
     });
@@ -136,9 +154,6 @@ function buildGrid(){
 			});
 		}
 	});
-
-	//Fades out the creator row.
-	$("#contentRow").fadeOut("fast");
 }
 
 //Fetches gardenGrid from firebase and constructs a bootstrap layout.
@@ -151,26 +166,29 @@ function fetchAndDisplayGrid(){
 			$(this).removeClass("dbPosActive");
 		});
 
-		dbRef.on(
-			"value",
-			function(snap){
+		$(".inspecting").each(function(){
+			$(this).removeClass("inspecting");
+		});
+
+		dbRef.on("value",function(snap){
 				snap.forEach(function(snap){
 					$(existingGrid[snap.val()[0] +  (5 * snap.val()[1])]).toggleClass("dbPosActive");
 				});
+
 				$(".gardenPlanter").each(function(){
 					if (!$(this).hasClass("dbPosActive")){
 						$(this).css({"visiblity": "hidden", "opacity": "0", "user-select": "none"});
-						$(this.firstChild).css({"display": "none", "visiblity": "hidden"});
-						$(this.firstChild).attr("disabled", "disabled");
+						$(this).children(".addPlant").css({"display": "none", "visiblity": "hidden"});
+						$(this).children(".addPlant").attr("disabled", "disabled");
 					
 					}else{
 						$(this).css({"visiblity": "visible", "opacity": "1", "user-select": "auto"});
 						if ($(this).hasClass("hasPlant")){
-							$(this.firstChild).attr("disabled", "disabled");
-							$(this.firstChild).css({"display": "none", "visiblity": "hidden"});
+							$(this).children(".addPlant").attr("disabled", "disabled");
+							$(this).children(".addPlant").css({"display": "none", "visiblity": "hidden"});
 						}else{
-							$(this.firstChild).removeAttr("disabled");
-							$(this.firstChild).css({"display": "block", "visiblity": "visible"});
+							$(this).children(".addPlant").removeAttr("disabled");
+							$(this).children(".addPlant").css({"display": "block", "visiblity": "visible"});
 						}
 					}
 				});
@@ -189,7 +207,6 @@ function fetchAndDisplayGrid(){
 				var plantName = $(this).data("plant");
 				$(this).css({"backgroundImage" : "url('css/img/"+plantName+".png')", "backgroundSize" : "cover"});
 				$(this.firstChild).css({"display": "none", "visiblity": "hidden"});
-
 			});
 
 			$(".hasPlant").click(function(){
@@ -220,7 +237,7 @@ function on(box) {
 	$("#plantOverlay").removeClass("fadeOutLeft");
 	$("#plantOverlay").addClass("fadeInLeft faster animated");
 
-    $("#plantOverlay").attr("data-box", box);
+   $("#plantOverlay").attr("data-box", box);
 }
 
 function off() {
@@ -231,8 +248,9 @@ function off() {
 function displayInspectOverlay(){
 	document.getElementById("inspectPlantOverlay").style.display = "block";
 	document.getElementById("inspectPlantOverlay").style.visibility = "visible";
-	$("#inspectPlantOverlay").removeClass("fadeOutRight");
-	$("#inspectPlantOverlay").addClass("animated fadeInRight faster");
+	// $("#inspectPlantOverlay").removeClass("fadeOutRight");
+	// $("#inspectPlantOverlay").addClass("animated fadeInRight faster");
+	$("#inspectPlantOverlay").attr("class", "container-fluid animated faster fadeInRight");
 	$(".inspecting").each(function(){
 		$(this).removeClass("inspecting");
 	});
@@ -242,15 +260,15 @@ function hideInspectOverlay(){
 	$(".inspecting").each(function(){
 		$(this).removeClass("inspecting");
 	});
-	$("#inspectPlantOverlay").addClass("fadeOutRight");
-	$("#inspectPlantOverlay").removeClass("fadeInRght");
-
+	// $("#inspectPlantOverlay").addClass("fadeOutRight");
+	// $("#inspectPlantOverlay").removeClass("fadeInRght");
+	$("#inspectPlantOverlay").attr("class", "container-fluid animated faster fadeOutRight");
 }
 
 $(document).ready(function() {
 	ShowList("Plants");
 	buildCreateAGarden();
-	
+	loadDone();
 });
 
 function ShowList(category) {
@@ -316,7 +334,7 @@ function addPlant(plantName) {
     boxDiv[box-1].style.backgroundImage = ("url('css/img/"+plantName+".png')");
     boxDiv[box-1].style.backgroundSize = "cover";
     var selectedBox = boxDiv[box-1];
-	$(selectedBox.firstChild).css({"display": "none", "visiblity": "hidden"});
+	$(selectedBox).children(".addPlant").css({"display": "none", "visiblity": "hidden"});
 	var index = (box -1);
 	var today = new Date();
 	var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -344,17 +362,17 @@ function addHours(date, hours){
 	return new Date(date.getTime() + (hours * 60 * 60 * 1000));
 }
 
-// function addExp(xpToAdd){
-// 	var user = globalUser;
-// 		var ref = firebase.database().ref("users/" + user.uid + "/xpStats");
-// 		ref.on("value", function(snap) {
-// 			snap.val().exp += xpToAdd;
-// 			if (snap.val().exp >=  snap.val().expForLevel){
-// 				var remainingExp = snap.val().exp - snap.val().expForLevel;
-// 				handleLevelUp(remainingExp);
-// 			}
-// 		});
-// }
+function addExp(xpToAdd){
+	var user = globalUser;
+		var ref = firebase.database().ref("users/" + user.uid + "/xpStats");
+		ref.on("value", function(snap) {
+			snap.val().exp += xpToAdd;
+			if (snap.val().exp >=  snap.val().expForLevel){
+				var remainingExp = snap.val().exp - snap.val().expForLevel;
+				handleLevelUp(remainingExp);
+			}
+		});
+}
 
 function handleLevelUp(remainingExp, expForLevel, currLevel){
 	var user = globalUser;
@@ -384,12 +402,13 @@ function handleLevelUp(remainingExp, expForLevel, currLevel){
 
 
 function noGarden() {
-
     $("#moreButton").css({"visibility": "hidden", "display": "none"});
     $("#title").css({"visibility": "hidden", "display": "none"});
+    $("#expContainer").css({"visibility": "hidden", "display": "none"});
     var noGarden = $(document.createElement("div")).attr("id", "noGarden");
     $("#pageContainer").append(noGarden);
     var noGardenMsg = $(document.createElement("h3")).attr("id","noGardenMsg");
     $("#noGarden").append(noGardenMsg);
-    $("#noGardenMsg").text("You don't have a Garden. Create a new Garden!");
+    $("#noGardenMsg").text("Looks like you're new here. Let's get started by creating a garden!").css("font-weight", "bold");
+    $('body').css({"background-image": "url('css/img/gridme.png')", "color": "black"});
 }
