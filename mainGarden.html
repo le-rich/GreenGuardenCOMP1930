@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Green Guarden - Home</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans|EB+Garamond|Montserrat|Permanent+Marker" rel="stylesheet">
+  <!-- Animate.css -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyBM1eKxfY5soposARWN3ZvJv3ndXemRMjg",
+      authDomain: "green-guarden.firebaseapp.com",
+      databaseURL: "https://green-guarden.firebaseio.com",
+      projectId: "green-guarden",
+      storageBucket: "green-guarden.appspot.com",
+      messagingSenderId: "1087673307666"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+</head>
+
+<body>
+  <div id="overlayLoad" class="container-fluid">
+      <div class="row">
+        <div id="overlayInner" class=" col-3 text-center mx-auto animated infinite pulse faster">
+          Loading...
+        </div>
+      </div>
+  </div>      
+  <div id="plantOverlay" class="container-fluid">
+    <div class="row">
+      <div id="availPlants" class="col-8 mx-auto text-center">
+        Available Plants
+      </div>
+    </div>
+      <button id="close" type="button" onclick="off()">X</button>
+  </div>
+  <div id="inspectPlantOverlay" class="container-fluid">
+    <div class="row">
+      <div class="col-12 text-right">
+        <button id="close" type="button" onclick="hideInspectOverlay()">X</button>
+      </div>
+    </div>
+    <div class="row">
+      <div id="inspectTitle" class="col-10 mx-auto text-center"></div>
+    </div>
+
+    <div class="row mt-5 mx-auto text-center">
+      <div class="col-4 ml-auto">Water On:</div>
+      <div id="inspectWaterDate" class="col-7 mr-auto text-left">||||||||</div>
+    </div>
+    <div class="row mx-auto text-center">
+      <div class="col-4 ml-auto">Pick On:</div>
+      <div id="inspectPickDate" class="col-7 mr-auto text-left">|||||||</div>
+    </div>
+    <div id="buttonRow" class="row text-center mx-auto mt-5">
+      <div class="col-4 mx-2 ml-auto">
+        <button id="pickBtn" type="button" class="btn btn-success">Pick</button>
+      </div>
+      <div class="col-4 mx-2 mr-auto">
+        <button id="waterBtn" type="button" class="btn btn-primary">Water</button>
+      </div>
+    </div>
+  </div>
+  <div id="uiContainer" class="container-fluid">
+    <div class="row mt-3">
+      <div class="col-3 text-left">
+
+      </div>
+      <div class="col-6 text-center">
+        <div class="container-fluid">
+          <div class="row">
+            <div id="title" class="col-12 animated slideInDown">Garden Title</div>
+            <div class="col-12 animated fadeInDown">
+              <button id="moreButton">Edit Garden Layout</button>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+      <div class="col-3 text-center">       
+      </div>
+    </div>  
+    <div id="uiSpacerRow" class="row">
+    </div>
+    <div class="row">
+      <div class="col-10 mx-auto">
+        <div id="expContainer" class="headerContainer container-fluid animated slideInUp">
+          <div class="row"> 
+            <div class="col-1 my-auto mx-auto text-center">
+             <!--  <img src="css/img/thumb.PNG" width="80%" height="auto"> -->
+              <p id="signOut">Sign Out</p>
+            </div>
+            <div class="col-9 container-fluid">
+              <div class="row">
+                <div id="expName" class="col-12">
+                  Name Here
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 mb-3">
+                </div>
+              </div>
+              <div class="row">
+                <div id="expLevel" class="col-7">
+                  Level
+                </div>
+                <div id="expXPCounter" class="ml-auto col-4 text-right">
+                  XP
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 my-1">
+                  <div id="xpFull">
+                    <div id="xpActual"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="pageContainer" class="container-fluid">
+    <div class="row">
+      <button id="createGardenButton" type="button" class="btn btn-outline-success">Create a Garden</button>
+    </div>
+    <div id="gardenRow" class="row align-middle">
+      <div id="gardenContainer" class="col-10 mr-auto ml-auto">
+        <div class="row text-center">
+          <div class="col-2 gardenPlanter ml-auto">
+              <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(1)" >
+              
+            </div>
+          <div class="col-2 gardenPlanter">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(2)" >
+            </div>    
+          <div class="col-2 gardenPlanter">
+                <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(3)" >
+           
+            </div>
+          <div class="col-2 gardenPlanter">
+              <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(4)" >
+          
+            </div>   
+          <div class="col-2 gardenPlanter mr-auto">
+              <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(5)" >
+             
+            </div> 
+        </div>
+        <div class="row text-center">
+          <div class="col-2 gardenPlanter ml-auto">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(6)" >
+            </div>
+          <div class="col-2 gardenPlanter">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(7)" >
+            </div>
+          <div class="col-2 gardenPlanter">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(8)" >
+            </div>
+          <div class="col-2 gardenPlanter">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(9)" >
+            </div>
+          <div class="col-2 gardenPlanter mr-auto">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(10)" >
+          </div>
+        </div>
+        <div class="row text-center">
+          <div class="col-2 gardenPlanter ml-auto">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(11)" >
+            </div>
+          <div class="col-2 gardenPlanter">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(12)" >
+          
+            </div>
+          <div class="col-2 gardenPlanter">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(13)" >
+             </div>
+          <div class="col-2 gardenPlanter">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(14)" >
+            </div>
+          <div class="col-2 gardenPlanter mr-auto">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(15)" >
+            
+            </div>
+        </div>
+        <div class="row text-center">
+          <div class="col-2 gardenPlanter ml-auto">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(16)" >
+            </div>
+          <div class="col-2 gardenPlanter">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(17)" >
+            </div>
+          <div class="col-2 gardenPlanter">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(18)" >
+            </div>
+          <div class="col-2 gardenPlanter">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(19)" >
+            </div>
+          <div class="col-2 gardenPlanter  mr-auto">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(20)" >
+     
+            </div>
+        </div>
+        <div class="row text-center">
+          <div class="col-2 gardenPlanter ml-auto">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(21)" >
+         
+            </div>
+          <div class="col-2 gardenPlanter">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(22)" >
+       
+            </div>
+          <div class="col-2 gardenPlanter">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(23)" >
+           
+            </div>
+          <div class="col-2 gardenPlanter">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(24)" >
+          
+            </div>
+          <div class="col-2 gardenPlanter mr-auto">
+               <div class="iconContainer">
+                <div class = "waterNotification" id="water1"></div>
+                <div class = "pickNotification" id="pick1"></div>
+              </div>
+              <img src = "css/img/plus.png" class="addPlant" onclick="on(25)" >
+        
+            </div>
+        </div>
+      </div>
+    </div>
+    <div id="contentRow" class="row align-middle">
+      <div id="cagPrompt" class="col-8 mx-auto text-center pb-5">
+        Pick the Layout of Your Garden
+      </div>
+      <div id="createGardenContainer" class="col-12 mr-auto ml-auto">
+        <div id="btn-container" class="mx-auto my-auto">
+          <!-- Create a Grid is added here  -->
+        </div>
+        <div class="row">
+          <div class="col-1 mx-auto text-center mt-3">
+            <span id="doneButton"><button id="doneBtn" type="button" class="btn btn-primary">Done</button></span>
+          </div>
+        </div>
+      </div>
+    </div>
+      
+   
+  </div>
+
+  <!-- Date.js -->
+  <script type="text/javascript" src="js/date.js"></script>
+  <!-- Date CultureInfo for Canada -->
+  <script type="text/javascript" src="js/date-en-CA.js"></script>
+  <!-- Bootstrap Dependencies -->
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <!-- Custom -->
+  <script type="text/javascript" src="js/main.js"></script>
+  <!-- Weather -->
+  <script></script>    
+</body>
+</html>

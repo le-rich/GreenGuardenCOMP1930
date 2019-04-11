@@ -67,7 +67,7 @@ function loginFirebaseAccount(){
 		firebase.auth().onAuthStateChanged(function(user){
 			$("#all").toggleClass("animated fadeOutUp faster").on("webkitAnimationEnd oAnimationEnd msAnimationEnd animationend", function(e) {
 				$("#loginMessage").text("Welcome Back!");
-				window.location.href = "index.html";
+				window.location.href = "mainGarden.html";
 			});
 			
 		});
@@ -81,6 +81,6 @@ function loginFirebaseAccount(){
 
 firebase.auth().onAuthStateChanged(function(user){
 	if (!loginProcessing && user != null){
-		window.location.href="index.html";
+		window.location.href="mainGarden.html";
 	}
 });
