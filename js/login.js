@@ -6,7 +6,7 @@ function loadDone(){
 function showPage(){
 	$("#overlayLoad").slideUp("fast");
 	$("#allContainer").css({"display": "block", "visibility": "visible"});
-	sleep(1000);
+	sleep(2000);
 }
 
 function switchToLogin(){
