@@ -326,3 +326,33 @@ h1{
     
 }
 
+#noGardenMsg {
+    text-align: center;
+    margin-top: -120px;
+}
+
+.pickNotification {
+    height: 20px;
+    width: 20px;
+    background-image: url(img/sun.jpg);
+    position: relative;
+    left: 36px;
+    bottom: 36px;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+
+
+.waterNotification{
+    background-image: url(img/Water.png);
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    border-radius: 50%;
+    position: relative;
+    right: 36px;
+    bottom: 36px;
+}
+

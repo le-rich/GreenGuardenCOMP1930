@@ -17,11 +17,32 @@ firebase.auth().onAuthStateChanged(function(user){
     ref.on("value", function(snap){
     	if (snap.val() == true){
     		$("#createGardenButton").css({"visibility": "hidden", "display": "none"});
-    		fetchAndDisplayGrid();	
-    	}
+    		fetchAndDisplayGrid();
+            $("#moreButton").css({"visibility": "visible", "display": ""});
+            $("#waterBtn").css({"visibility": "visible", "display": ""});
+            $("#pickBtn").css({"visibility": "visible", "display": ""});
+            $("#title").css({"visibility": "visible", "display": ""});
+    	} else {
+            $("#moreButton").css({"visibility": "hidden", "display": "none"});
+            $("#waterBtn").css({"visibility": "hidden", "display": "none"});
+            $("#pickBtn").css({"visibility": "hidden", "display": "none"});
+            $("#title").css({"visibility": "hidden", "display": "none"});
+            var noGarden = $(document.createElement("div")).attr("id", "noGarden");
+            $("#pageContainer").append(noGarden);
+            var noGardenMsg = $(document.createElement("h3")).attr("id","noGardenMsg");
+            $("#noGarden").append(noGardenMsg);
+            $("#noGardenMsg").text("You don't have a Garden. Create a new Garden!");
+<<<<<<< HEAD
+        }
+        initUserStats();
+    	});
+=======
+        };
     });
     initUserStats();
+>>>>>>> f1421a005ad67d94752c76afe68f1ddb9aac1129
 });
+
 
 
 $("#signOut").click(function(){
@@ -39,6 +60,7 @@ $('#createGardenButton').click(function(){
 	$('#createGardenButton').fadeOut("fast",function(){
 		$("#contentRow").css({"visibility": "visible", "display": "flex"});
 	});
+    $("#noGarden").css({"visibility": "hidden", "display": "none"});
     //buildCreateAGarden();
 });
 
@@ -175,7 +197,7 @@ function fetchAndDisplayGrid(){
 			$(".hasPlant").each(function(){
 				//Hides the add plant button on given garden grid.
 				var plantName = $(this).data("plant");
-				$(this).css({"backgroundImage" : "url('css/img/"+plantName+".jpg')", "backgroundSize" : "cover"});
+				$(this).css({"backgroundImage" : "url('css/img/"+plantName+".png')", "backgroundSize" : "cover"});
 				$(this.firstChild).css({"display": "none", "visiblity": "hidden"});
 
 			});
@@ -294,7 +316,7 @@ function addPlant(plantName) {
     var overlay = document.getElementById("plantOverlay");
     var box = overlay.dataset.box;
     var boxDiv = document.getElementsByClassName("gardenPlanter");
-    boxDiv[box-1].style.backgroundImage = ("url('css/img/"+plantName+".jpg')");
+    boxDiv[box-1].style.backgroundImage = ("url('css/img/"+plantName+".png')");
     boxDiv[box-1].style.backgroundSize = "cover";
     var selectedBox = boxDiv[box-1];
 	$(selectedBox.firstChild).css({"display": "none", "visiblity": "hidden"});
@@ -360,5 +382,5 @@ function handleLevelUp(remainingExp, expForLevel, currLevel){
 		}).then(function(){
 			UpdateXPBar();
 		});
-	}
+	};
 }
