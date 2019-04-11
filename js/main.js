@@ -19,13 +19,9 @@ firebase.auth().onAuthStateChanged(function(user){
     		$("#createGardenButton").css({"visibility": "hidden", "display": "none"});
     		fetchAndDisplayGrid();
             $("#moreButton").css({"visibility": "visible", "display": ""});
-            $("#waterBtn").css({"visibility": "visible", "display": ""});
-            $("#pickBtn").css({"visibility": "visible", "display": ""});
             $("#title").css({"visibility": "visible", "display": ""});
     	} else {
             $("#moreButton").css({"visibility": "hidden", "display": "none"});
-            $("#waterBtn").css({"visibility": "hidden", "display": "none"});
-            $("#pickBtn").css({"visibility": "hidden", "display": "none"});
             $("#title").css({"visibility": "hidden", "display": "none"});
             var noGarden = $(document.createElement("div")).attr("id", "noGarden");
             $("#pageContainer").append(noGarden);
