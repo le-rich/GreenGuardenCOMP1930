@@ -17,21 +17,26 @@ firebase.auth().onAuthStateChanged(function(user){
     ref.on("value", function(snap){
     	if (snap.val() == true){
     		$("#createGardenButton").css({"visibility": "hidden", "display": "none"});
-    		fetchAndDisplayGrid();	
+    		fetchAndDisplayGrid();
+            $("#moreButton").css({"visibility": "visible", "display": ""});
+            $("#waterBtn").css({"visibility": "visible", "display": ""});
+            $("#pickBtn").css({"visibility": "visible", "display": ""});
+            $("#title").css({"visibility": "visible", "display": ""});
     	} else {
             $("#moreButton").css({"visibility": "hidden", "display": "none"});
             $("#waterBtn").css({"visibility": "hidden", "display": "none"});
             $("#pickBtn").css({"visibility": "hidden", "display": "none"});
+            $("#title").css({"visibility": "hidden", "display": "none"});
             var noGarden = $(document.createElement("div")).attr("id", "noGarden");
             $("#pageContainer").append(noGarden);
-            var noGardenMsg = $(document.createElement("h3")).attr("id", "noGardenMsg");
+            var noGardenMsg = $(document.createElement("h3")).attr("id","noGardenMsg");
             $("#noGarden").append(noGardenMsg);
             $("#noGardenMsg").text("You don't have a Garden. Create a new Garden!");
         }
-    	}
-    });
-    initUserStats();
+        initUserStats();
+    	});
 });
+
 
 
 $("#signOut").click(function(){
@@ -380,5 +385,5 @@ function handleLevelUp(remainingExp, expForLevel, currLevel){
 		}).then(function(){
 			UpdateXPBar();
 		});
-	}
+	};
 }
