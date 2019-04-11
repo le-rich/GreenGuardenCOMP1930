@@ -364,7 +364,7 @@ h1{
 
 .iconContainer{
     width: 140%;
-    border: 1px solid black;
+    
     display: flex;
     position: relative;
     bottom: 8.5%;
