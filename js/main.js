@@ -45,9 +45,17 @@ $('#createGardenButton').click(function(){
     //buildCreateAGarden();
 });
 
+function fetchDisplayInspectorInfo(index, name){
+	var pickDateRef = firebase.database().ref("users/" + globalUser.uid + "/plants/" + index);
+	pickDateRef.on("value", function(snap){
+		$("#inspectPickDate").text(snap.val().dateToPick);
+	});
+	$("#inspectTitle").text(name);
+	
+}
+
 
 //Creates a 5 x 5 Garden Grid
-//TODO: Make this accept arbitrary sized array.
 function buildCreateAGarden(){
 	//Create Each Button
 	for (var y = 0; y < 5; y++){
@@ -169,10 +177,11 @@ function fetchAndDisplayGrid(){
 			}, function(error){
 				console.log("Error displaying grid: " + error.code);
 			});
-
-		plantRef.on("value", function(snap){
+			var index = 0;
+			plantRef.on("value", function(snap){
 			snap.forEach(function(snap){
-				$(existingGrid[snap.val()["gridIndex"]]).addClass("hasPlant").data("plant", snap.val()["plant"]);
+				$(existingGrid[snap.val()["gridIndex"]]).addClass("hasPlant").attr({"data-plant": snap.val()["plant"], "data-ind": snap.val()["gridIndex"]});
+				index++;
 			});
 
 			$(".hasPlant").each(function(){
@@ -187,7 +196,10 @@ function fetchAndDisplayGrid(){
 				if ($(this).hasClass("inspecting")){
 					hideInspectOverlay();
 				}else{
+					var plantName = $(this).attr("data-plant");
+					var plantInd = $(this).attr("data-ind");
 					displayInspectOverlay();
+					fetchDisplayInspectorInfo(plantInd, plantName);
 					$(this).addClass("inspecting");
 				}
 			});
@@ -308,8 +320,8 @@ function addPlant(plantName) {
 	var index = (box -1);
 	var today = new Date();
 	var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-	var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-	var dateTime = date + ' ' + time;
+	var time = today.getHours() + ":" + today.getMinutes();
+	var dateTime = time + ' ' + date;
 
 
 	var dbPlantRef = firebase.database().ref("Plants/" + plantName);
@@ -317,8 +329,8 @@ function addPlant(plantName) {
 		var waterInHours = snap.val()["timeToWater"];
 		var pickInHours = snap.val()["timeToPick"];
 		var now = new Date();
-		var nextWaterDate = now.add(waterInHours).hours().toString('yyyy/M/d H:m:s');
-		var nextPickDate = now.add(pickInHours).hours().toString('yyyy/M/d H:m:s');
+		var nextWaterDate = now.add(waterInHours).hours().toString(' MMMM d yyyy');
+		var nextPickDate = now.add(pickInHours).hours().toString('MMMM d yyyy');
 		firebase.database().ref("users/"+ globalUser.uid + "/plants/" + (box-1)).update({
     		"plant" : plantName,
     		"gridIndex" : index,
