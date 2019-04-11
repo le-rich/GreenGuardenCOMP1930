@@ -16,18 +16,9 @@ firebase.auth().onAuthStateChanged(function(user){
     ref = firebase.database().ref("users/" + user.uid +"/gardenCreated");
     ref.on("value", function(snap){
     	if (snap.val() == true){
-    		$("#createGardenButton").css({"visibility": "hidden", "display": "none"});
     		fetchAndDisplayGrid();
-            $("#moreButton").css({"visibility": "visible", "display": ""});
-            $("#title").css({"visibility": "visible", "display": ""});
     	} else {
-            $("#moreButton").css({"visibility": "hidden", "display": "none"});
-            $("#title").css({"visibility": "hidden", "display": "none"});
-            var noGarden = $(document.createElement("div")).attr("id", "noGarden");
-            $("#pageContainer").append(noGarden);
-            var noGardenMsg = $(document.createElement("h3")).attr("id","noGardenMsg");
-            $("#noGarden").append(noGardenMsg);
-            $("#noGardenMsg").text("You don't have a Garden. Create a new Garden!");
+            noGarden();
         }
 
         initUserStats();
@@ -205,6 +196,10 @@ function fetchAndDisplayGrid(){
 
 		$("#gardenRow").css({"visibility": "visible", "display": "flex"});
 	});
+    
+        $("#createGardenButton").css({"visibility": "hidden", "display": "none"});
+        $("#moreButton").css({"visibility": "visible", "display": ""});
+        $("#title").css({"visibility": "visible", "display": ""});
 }
 
 function on(box) {
@@ -373,4 +368,16 @@ function handleLevelUp(remainingExp, expForLevel, currLevel){
 			UpdateXPBar();
 		});
 	};
+}
+
+
+function noGarden() {
+
+    $("#moreButton").css({"visibility": "hidden", "display": "none"});
+    $("#title").css({"visibility": "hidden", "display": "none"});
+    var noGarden = $(document.createElement("div")).attr("id", "noGarden");
+    $("#pageContainer").append(noGarden);
+    var noGardenMsg = $(document.createElement("h3")).attr("id","noGardenMsg");
+    $("#noGarden").append(noGardenMsg);
+    $("#noGardenMsg").text("You don't have a Garden. Create a new Garden!");
 }
