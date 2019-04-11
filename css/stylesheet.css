@@ -148,6 +148,8 @@ body{
 .addPlant {
     width: 80%;
     font-weight: bold;
+    position: relative;
+    bottom: 8%;
 }
 
 .plant {
@@ -335,9 +337,11 @@ h1{
     height: 20px;
     width: 20px;
     background-image: url(img/sun.jpg);
+    /*
     position: relative;
     left: 36px;
     bottom: 36px;
+    */
     background-size: cover;
     border-radius: 50%;
 }
@@ -352,7 +356,18 @@ h1{
     border: 1px solid black;
     border-radius: 50%;
     position: relative;
+    /*
     right: 36px;
     bottom: 36px;
+    */
+}
+
+.iconContainer{
+    width: 140%;
+    border: 1px solid black;
+    display: flex;
+    position: relative;
+    bottom: 8.5%;
+    justify-content: space-between
 }
 
