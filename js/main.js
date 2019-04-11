@@ -169,7 +169,7 @@ function fetchAndDisplayGrid(){
 
 		plantRef.on("value", function(snap){
 			snap.forEach(function(snap){
-				$(existingGrid[snap.val()["gridIndex"]]).toggleClass("hasPlant").data("plant", snap.val()["plant"]);
+				$(existingGrid[snap.val()["gridIndex"]]).addClass("hasPlant").data("plant", snap.val()["plant"]);
 			});
 
 			$(".hasPlant").each(function(){
@@ -181,8 +181,12 @@ function fetchAndDisplayGrid(){
 			});
 
 			$(".hasPlant").click(function(){
-				console.log("I'm here!");
-				displayInspectOverlay();
+				if ($(this).hasClass("inspecting")){
+					hideInspectOverlay();
+				}else{
+					displayInspectOverlay();
+					$(this).addClass("inspecting");
+				}
 			});
 		});
 
@@ -210,16 +214,19 @@ function displayInspectOverlay(){
 	document.getElementById("inspectPlantOverlay").style.visibility = "visible";
 	$("#inspectPlantOverlay").removeClass("fadeOutRight");
 	$("#inspectPlantOverlay").addClass("animated fadeInRight faster");
+	$(".inspecting").each(function(){
+		$(this).removeClass("inspecting");
+	});
 }
 
 function hideInspectOverlay(){
+	$(".inspecting").each(function(){
+		$(this).removeClass("inspecting");
+	});
 	$("#inspectPlantOverlay").addClass("fadeOutRight");
 	$("#inspectPlantOverlay").removeClass("fadeInRght");
 
 }
-
-
-
 
 $(document).ready(function() {
 	ShowList("Plants");
@@ -241,8 +248,8 @@ function ShowList(category) {
 function DisplayList(list){
 	for (x in list) {
         var plantName = x;
-		var newRow = $(document.createElement("div")).attr("class", "row");
-		var col = $(document.createElement("div")).attr("class", "col-12");
+		var newRow = $(document.createElement("div")).attr("class", "row text-center");
+		var col = $(document.createElement("div")).attr("class", "col-8 mx-auto");
 		var para = $(document.createElement("button")).attr({"class":"plant", "onclick":'addPlant("'+plantName+'")', "type":"button"});
 		newRow.append(col);
 		col.append(para);
@@ -317,22 +324,6 @@ function addPlant(plantName) {
 function addHours(date, hours){
 	return new Date(date.getTime() + (hours * 60 * 60 * 1000));
 }
-
-
-
-
-
-
-
-// function notification{
-//     var notificatio1 = document.getElementById("notificationFeed");
-//     var dbRef = firebase.database().ref()()
-    
-
-// }
-
-
-
 
 // function addExp(xpToAdd){
 // 	var user = globalUser;

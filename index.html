@@ -3,7 +3,7 @@
 <head>
   <title>Green Guarden - Home</title>
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans|EB+Garamond|Montserrat" rel="stylesheet">
   <!-- Animate.css -->
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
   <!-- Bootstrap -->
@@ -40,27 +40,54 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-3">Picture</div>
-      <div class="col-8 text-center">Title</div>
+      <div class="col-5">Picture</div>
+      <div class="col-7 text-left">Title</div>
     </div>
 
-    <div class="row mt-5">
+    <div class="row mt-5 mx-auto">
       <div class="col-5">Water Level:</div>
       <div class="col-7">||||||||</div>
     </div>
-    <div class="row">
+    <div class="row mx-auto">
       <div class="col-5">Pick Date:</div>
       <div class="col-7">|||||||</div>
     </div>
-      
+    <div id="buttonRow" class="row text-center mx-auto mt-5">
+      <div class="col-4 mx-2 ml-auto">
+        <button id="pickBtn" type="button" class="btn btn-success" disabled>Pick</button>
+      </div>
+      <div class="col-4 mx-2 mr-auto">
+        <button id="waterBtn" type="button" class="btn btn-primary">Water</button>
+      </div>
+    </div>
   </div>
   <div id="uiContainer" class="container-fluid">
     <div class="row mt-3">
       <div class="col-3 text-left">
+
+      </div>
+      <div class="col-6 text-center">
+        <div class="container-fluid">
+          <div class="row">
+            <div id="title" class="col-12">Garden Title</div>
+            <div class="col-12">
+              <button id="moreButton">Edit Garden Layout</button>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+      <div class="col-3 text-center">       
+      </div>
+    </div>  
+    <div id="uiSpacerRow" class="row">
+    </div>
+    <div class="row">
+      <div class="col-10 mx-auto">
         <div id="expContainer" class="headerContainer container-fluid">
           <div class="row"> 
-            <div class="col-3 my-auto">
-              <img src="css/img/thumb.PNG" width="100%" height="auto">
+            <div class="col-1 my-auto mx-auto text-center">
+             <!--  <img src="css/img/thumb.PNG" width="80%" height="auto"> -->
               <p id="signOut">Sign Out</p>
             </div>
             <div class="col-9 container-fluid">
@@ -91,29 +118,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-6 text-center">
-        <div class="container-fluid">
-          <div class="row">
-            <div id="title" class="col-12">Garden Title</div>
-            <div class="col-12">
-              <button id="moreButton">Edit Garden Layout</button>
-            </div>
-          </div>
-        </div>
-      </div>
-        
-      <div class="col-3 text-center">       
-      </div>
-    </div>  
-    <div id="uiSpacerRow" class="row">
-    </div>
-    <div class="row text-center mx-auto">
-      <div class="col-4 mx-2 ml-auto">
-        <button id="pickBtn" type="button" class="btn btn-primary">Pick</button>
-      </div>
-      <div class="col-4 mx-2 mr-auto">
-        <button id="waterBtn" type="button" class="btn btn-primary">Water</button>
       </div>
     </div>
   </div>

@@ -1,11 +1,12 @@
 function loadDone(){
 	switchToLogin();
-	myVar = setTimeout(showPage, 1500);
+	myVar = setTimeout(showPage, 800);
 }
 
 function showPage(){
 	$("#overlayLoad").slideUp("fast");
 	$("#allContainer").css({"display": "block", "visibility": "visible"});
+	sleep(1000);
 }
 
 function switchToLogin(){
