@@ -32,17 +32,11 @@ firebase.auth().onAuthStateChanged(function(user){
             var noGardenMsg = $(document.createElement("h3")).attr("id","noGardenMsg");
             $("#noGarden").append(noGardenMsg);
             $("#noGardenMsg").text("You don't have a Garden. Create a new Garden!");
-<<<<<<< HEAD
         }
-        initUserStats();
-    	});
-=======
-        };
-    });
-    initUserStats();
->>>>>>> f1421a005ad67d94752c76afe68f1ddb9aac1129
-});
 
+        initUserStats();
+    });
+});
 
 
 $("#signOut").click(function(){
